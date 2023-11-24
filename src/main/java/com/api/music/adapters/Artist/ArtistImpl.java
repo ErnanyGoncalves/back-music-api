@@ -33,7 +33,7 @@ public class ArtistImpl implements ArtistPort {
     }
 
 
-    //COMO FARIA PARA GET ARTISTS COM QUERY PARAMS?
+
     @GetMapping
     public List<Artist> getArtists(@RequestParam("country") List<String> originCountries, @RequestParam("genre") List<String> genres) {
         return getArtistsUseCase.getArtists(originCountries,genres);

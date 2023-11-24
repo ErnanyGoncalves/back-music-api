@@ -7,11 +7,9 @@ import org.springframework.stereotype.Service;
 public class DeleteArtistUseCase {
 
     private final ArtistRepositoryPort artistRepository;
-    private Long id;
 
-    public DeleteArtistUseCase(ArtistRepositoryPort artistRepository, Long id) {
+    public DeleteArtistUseCase(ArtistRepositoryPort artistRepository) {
         this.artistRepository = artistRepository;
-        this.id = id;
     }
 
     public void deleteArtist(Long id) {

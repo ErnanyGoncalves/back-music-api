@@ -8,14 +8,15 @@ import org.springframework.stereotype.Service;
 public class GetArtistUseCase {
 
     private final ArtistRepositoryPort artistRepository;
-    private Long id;
 
-    public GetArtistUseCase(ArtistRepositoryPort artistRepository, Long id) {
+
+    public GetArtistUseCase(ArtistRepositoryPort artistRepository) {
         this.artistRepository = artistRepository;
-        this.id = id;
     }
 
     public Artist getArtist(Long id){
-        return artistRepository.findById(id);
+        final var artist = artistRepository.findById(id);
+
+        return artist.orElseThrow();
     }
 }

@@ -8,12 +8,8 @@ import org.springframework.stereotype.Service;
 public class EditArtistUseCase {
 
     private final ArtistRepositoryPort artistRepository;
-    private Long id;
-    private Artist newArtistData;
-    public EditArtistUseCase(ArtistRepositoryPort artistRepository, Long id, Artist newArtistData) {
+    public EditArtistUseCase(ArtistRepositoryPort artistRepository) {
         this.artistRepository = artistRepository;
-        this.id = id;
-        this.newArtistData= newArtistData;
     }
 
     public void editArtist(Long id, Artist newArtistData){

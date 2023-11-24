@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 public class CreateArtistUseCase {
 
     private final ArtistRepositoryPort artistRepository;
-    private Artist artist;
-    public CreateArtistUseCase(ArtistRepositoryPort artistRepository, Artist artist) {
+    public CreateArtistUseCase(ArtistRepositoryPort artistRepository) {
         this.artistRepository = artistRepository;
-        this.artist= artist;
     }
 
     public void createArtist( Artist artist){

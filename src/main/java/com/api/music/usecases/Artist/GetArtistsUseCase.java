@@ -10,16 +10,8 @@ import java.util.List;
 @Service
 public class GetArtistsUseCase {
     private final ArtistRepositoryPort artistRepository;
-    private List<String> originCountries = new ArrayList<>();
-    private List<String> genres = new ArrayList<>();
     public GetArtistsUseCase(ArtistRepositoryPort artistRepository) {
         this.artistRepository = artistRepository;
-    }
-
-    public GetArtistsUseCase(ArtistRepositoryPort artistRepository, List<String> originCountries, List<String> genres) {
-        this.artistRepository = artistRepository;
-        this.originCountries = originCountries;
-        this.genres = genres;
     }
 
     public List<Artist> getArtists(){

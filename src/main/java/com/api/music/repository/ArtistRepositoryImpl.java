@@ -1,55 +1,57 @@
 package com.api.music.repository;
 
 import com.api.music.models.Artist;
-import com.api.music.repository.usecases.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
+@Component
+@AllArgsConstructor
 public class ArtistRepositoryImpl implements ArtistRepositoryPort{
-
-    private final FindAllUseCase findAllUseCase;
-    private final FindByIdUseCase findByIdUseCase;
-    private final SaveUseCase saveUseCase;
-    private final EditUseCase editUseCase;
-    private final DeleteUseCase deleteUseCase;
-
-    public ArtistRepositoryImpl(FindAllUseCase findAllUseCase, FindByIdUseCase findByIdUseCase, SaveUseCase saveUseCase, EditUseCase editUseCase, DeleteUseCase deleteUseCase) {
-        this.findAllUseCase = findAllUseCase;
-        this.findByIdUseCase = findByIdUseCase;
-        this.saveUseCase = saveUseCase;
-        this.editUseCase = editUseCase;
-        this.deleteUseCase = deleteUseCase;
-    }
+    @Repository
+    public interface ArtistRepository extends JpaRepository<Artist,Long> {    }
+    private final ArtistRepository repository;
+//    private final EntityManager entityManager;
 
     @Override
     public List<Artist> findAll() {
-        return findAllUseCase.findAll();
+        return this.repository.findAll();
     }
 
     @Override
     public List<Artist> findAll(List<String> originCountries, List<String> genres) {
-        return findAllUseCase.findAll(originCountries, genres);
+//        final var filter = entityManager.getCriteriaBuilder().createQuery(Artist.class);
+//        filter.where()
+//        return this.repository.findAll();
     }
 
     @Override
-    public Artist findById(Long id) {
-        return findByIdUseCase.findById(id);
+    public Optional<Artist> findById(Long id) {
+        return this.repository.findById(id);
     }
 
     @Override
     public void save(Artist artist) {
-        saveUseCase.save(artist);
+        this.repository.save(artist);
     }
 
     @Override
-    public void edit(Long id, Artist newArtistData) {
-        editUseCase.edit(id,newArtistData);
+    public void edit(Long id, Artist artist) {
+        artist.setId(id);
+        this.repository.save(artist);
     }
 
     @Override
     public void delete(Long id) {
-        deleteUseCase.delete(id);
+        this.repository.deleteById(id);
     }
 }
+
+
