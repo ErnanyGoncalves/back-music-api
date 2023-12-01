@@ -1,6 +1,6 @@
-package com.api.music.usecases.Artist;
+package com.api.music.usecases.artist;
 
-import com.api.music.repository.ArtistRepositoryPort;
+import com.api.music.repository.artist.ArtistRepositoryPort;
 import org.springframework.stereotype.Service;
 
 @Service

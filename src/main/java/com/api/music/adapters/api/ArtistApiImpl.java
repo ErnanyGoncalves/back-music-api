@@ -1,15 +1,15 @@
-package com.api.music.adapters.Artist;
+package com.api.music.adapters.api;
 
 import com.api.music.models.Artist;
-import com.api.music.ports.ArtistPort;
-import com.api.music.usecases.Artist.*;
+import com.api.music.ports.ArtistApiPort;
+import com.api.music.usecases.artist.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
 @RequestMapping("/artists")
-public class ArtistImpl implements ArtistPort {
+public class ArtistApiImpl implements ArtistApiPort {
 
     private final GetArtistsUseCase getArtistsUseCase;
     private final GetArtistUseCase getArtistUseCase;
@@ -18,7 +18,7 @@ public class ArtistImpl implements ArtistPort {
     private final DeleteArtistUseCase deleteArtistUseCase;
 
     @Autowired
-    public ArtistImpl(GetArtistsUseCase getArtistsUseCase, GetArtistUseCase getArtistUseCase, CreateArtistUseCase createArtistUseCase, EditArtistUseCase editArtistUseCase, DeleteArtistUseCase deleteArtistUseCase) {
+    public ArtistApiImpl(GetArtistsUseCase getArtistsUseCase, GetArtistUseCase getArtistUseCase, CreateArtistUseCase createArtistUseCase, EditArtistUseCase editArtistUseCase, DeleteArtistUseCase deleteArtistUseCase) {
         this.getArtistsUseCase = getArtistsUseCase;
         this.getArtistUseCase = getArtistUseCase;
         this.createArtistUseCase = createArtistUseCase;
@@ -28,15 +28,13 @@ public class ArtistImpl implements ArtistPort {
 
 
     @GetMapping
-    public List<Artist> getArtists() {
-        return getArtistsUseCase.getArtists();
+    public List<Artist> getArtists(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
+        return getArtistsUseCase.getArtists(page,pageSize);
     }
 
-
-
     @GetMapping
-    public List<Artist> getArtists(@RequestParam("country") List<String> originCountries, @RequestParam("genre") List<String> genres) {
-        return getArtistsUseCase.getArtists(originCountries,genres);
+    public List<Artist> getArtists(@RequestParam("country") List<String> originCountries, @RequestParam("genre") List<String> genres,@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
+        return getArtistsUseCase.getArtists(originCountries,genres,page,pageSize);
     }
 
     @GetMapping("/{id}")
