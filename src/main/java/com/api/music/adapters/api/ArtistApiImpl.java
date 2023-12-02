@@ -28,12 +28,12 @@ public class ArtistApiImpl implements ArtistApiPort {
 
 
     @GetMapping
-    public List<Artist> getArtists(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
+    public List<Artist> getArtists(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize) {
         return getArtistsUseCase.getArtists(page,pageSize);
     }
 
     @GetMapping
-    public List<Artist> getArtists(@RequestParam("country") List<String> originCountries, @RequestParam("genre") List<String> genres,@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
+    public List<Artist> getArtists(@RequestParam("country") List<String> originCountries, @RequestParam("genre") List<String> genres,@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize) {
         return getArtistsUseCase.getArtists(originCountries,genres,page,pageSize);
     }
 

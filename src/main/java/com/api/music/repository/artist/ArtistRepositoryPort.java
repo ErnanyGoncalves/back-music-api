@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ArtistRepositoryPort {
-    List<Artist> findAll(int page, int pageSize);
-    List<Artist> findAll(List<String> originCountries, List<String> genres,int page, int pageSize);
+    List<Artist> findAll(Integer page, Integer pageSize);
+    List<Artist> findAll(List<String> originCountries, List<String> genres,Integer page, Integer pageSize);
     Optional<Artist> findById(Long id);
     void save(Artist artist);
     void edit(Long id, Artist artist);

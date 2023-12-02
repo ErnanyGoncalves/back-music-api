@@ -6,8 +6,8 @@ import java.util.List;
 
 
 public interface ArtistApiPort {
-    List<Artist> getArtists(int page, int pageSize);
-    List<Artist> getArtists(List<String> originCountries, List<String> genres, int page, int pageSize);
+    List<Artist> getArtists(Integer page, Integer pageSize);
+    List<Artist> getArtists(List<String> originCountries, List<String> genres, Integer page, Integer pageSize);
     Artist getArtist(Long id);
     void createArtist(Artist artist);
     void editArtist(Long id, Artist newArtistData);

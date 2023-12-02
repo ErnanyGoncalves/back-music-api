@@ -2,7 +2,6 @@ package com.api.music.repository.artist;
 
 import com.api.music.models.Artist;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +20,12 @@ public class ArtistRepositoryImpl implements ArtistRepositoryPort{
     }
 
     @Override
-    public List<Artist> findAll(int page, int pageSize) {
+    public List<Artist> findAll(Integer page, Integer pageSize) {
         return artistRepository.findAll(PageRequest.of(page,pageSize)).getContent();
     }
 
     @Override
-    public List<Artist> findAll(List<String> originCountries, List<String> genres, int page, int pageSize) {
+    public List<Artist> findAll(List<String> originCountries, List<String> genres, Integer page, Integer pageSize) {
           return artistRepository.findByCountryInAndGenreIn(originCountries, genres, PageRequest.of(page,pageSize)).getContent();
     }
 

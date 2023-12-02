@@ -13,11 +13,11 @@ public class GetArtistsUseCase {
         this.artistRepository = artistRepository;
     }
 
-    public List<Artist> getArtists(int page, int pageSize){
+    public List<Artist> getArtists(Integer page, Integer pageSize){
         return artistRepository.findAll( page,  pageSize);
     }
 
-    public List<Artist> getArtists(List<String> countries,List<String> genres,int page, int pageSize){
+    public List<Artist> getArtists(List<String> countries,List<String> genres,Integer page, Integer pageSize){
         return artistRepository.findAll(countries,genres,page,pageSize);
     }
 }
