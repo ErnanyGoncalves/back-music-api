@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Entity
@@ -15,6 +17,11 @@ public class Music {
     private String title;
     private Integer trackNum;
     private Integer duration;
-    private Long albumId;
-    private Long artistId;
+    @ManyToOne
+    @JoinColumn(name = "album_id")
+    private Album album;
+
+    @ManyToOne
+    @JoinColumn(name = "artist_id")
+    private Artist artist;
 }

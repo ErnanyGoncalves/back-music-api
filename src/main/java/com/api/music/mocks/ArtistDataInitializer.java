@@ -21,12 +21,12 @@ public class ArtistDataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (artistRepository.count() == 0) {
             List<Artist> artists = Arrays.asList(
-                    new Artist("Armin Van Buuren", "https://placehold.co/500", "netherlands", "electronic"),
-                    new Artist("TWICE", "https://placehold.co/500", "south korea", "k-pop"),
-                    new Artist("Ed Sheeran", "https://placehold.co/500", "uk", "pop"),
-                    new Artist("Lady Gaga", "https://placehold.co/500", "usa", "pop"),
-                    new Artist("Epica", "https://placehold.co/500", "netherlands", "metal"),
-                    new Artist("David Guetta", "https://placehold.co/500", "france", "electronic"),
+                new Artist("Armin Van Buuren", "https://placehold.co/500", "netherlands", "electronic"),
+                new Artist("TWICE", "https://placehold.co/500", "south korea", "k-pop"),
+                new Artist("Ed Sheeran", "https://placehold.co/500", "uk", "pop"),
+                new Artist("Lady Gaga", "https://placehold.co/500", "usa", "pop"),
+                new Artist("Epica", "https://placehold.co/500", "netherlands", "metal"),
+                new Artist("David Guetta", "https://placehold.co/500", "france", "electronic"),
             );
 
             artistRepository.saveAll(artists);
