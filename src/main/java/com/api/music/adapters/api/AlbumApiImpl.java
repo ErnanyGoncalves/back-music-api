@@ -3,7 +3,6 @@ package com.api.music.adapters.api;
 import com.api.music.models.Album;
 import com.api.music.ports.AlbumApiPort;
 import com.api.music.usecases.album.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class AlbumApiImpl implements AlbumApiPort {
     private final EditAlbumUseCase editAlbumUseCase;
     private final DeleteAlbumUseCase deleteAlbumUseCase;
 
-    @Autowired
+
     public AlbumApiImpl(GetAlbumsUseCase getAlbumsUseCase, GetAlbumUseCase getAlbumUseCase, CreateAlbumUseCase createAlbumUseCase, EditAlbumUseCase editAlbumUseCase, DeleteAlbumUseCase deleteAlbumUseCase) {
         this.getAlbumsUseCase = getAlbumsUseCase;
         this.getAlbumUseCase = getAlbumUseCase;
@@ -33,7 +32,7 @@ public class AlbumApiImpl implements AlbumApiPort {
         return getAlbumsUseCase.getAlbums(page,pageSize);
     }
 
-    @GetMapping
+    @GetMapping("/filter")
     public List<Album> getAlbums(@RequestParam("year") List<Integer> years, @RequestParam("artist") List<String> artists,@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize) {
         return getAlbumsUseCase.getAlbums(years,artists,page,pageSize);
     }

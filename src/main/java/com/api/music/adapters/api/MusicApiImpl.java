@@ -8,7 +8,6 @@ import com.api.music.usecases.music.EditMusicUseCase;
 import com.api.music.usecases.music.GetMusicUseCase;
 import com.api.music.usecases.music.GetMusicsUseCase;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +27,7 @@ public class MusicApiImpl implements MusicApiPort {
   private final EditMusicUseCase editMusicUseCase;
   private final DeleteMusicUseCase deleteMusicUseCase;
 
-  @Autowired
+
   public MusicApiImpl(GetMusicsUseCase getMusicsUseCase, GetMusicUseCase getMusicUseCase,
       CreateMusicUseCase createMusicUseCase, EditMusicUseCase editMusicUseCase,
       DeleteMusicUseCase deleteMusicUseCase) {
@@ -46,7 +45,7 @@ public class MusicApiImpl implements MusicApiPort {
     return getMusicsUseCase.getMusics(page, pageSize);
   }
 
-  @GetMapping
+  @GetMapping("/filter")
   public List<Music> getMusics(@RequestParam("album") List<String> albums,
       @RequestParam("artist") List<String> artists, @RequestParam("page") Integer page,
       @RequestParam("pageSize") Integer pageSize) {

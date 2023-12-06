@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface ArtistRepository  extends JpaRepository<Artist,Long> {
 
-    Page<Artist> findByCountryInAndGenreIn (List<String> originCountries, List<String> genres, Pageable pageable);
+    Page<Artist> findByOriginCountryInAndGenreIn (List<String> originCountries, List<String> genres, Pageable pageable);
 
 }

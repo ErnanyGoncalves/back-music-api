@@ -24,4 +24,12 @@ public class Music {
     @ManyToOne
     @JoinColumn(name = "artist_id")
     private Artist artist;
+
+    public Music(String title, Integer trackNum, Integer duration, Album album, Artist artist) {
+        this.title = title;
+        this.trackNum = trackNum;
+        this.duration = duration;
+        this.album = album;
+        this.artist = artist;
+    }
 }

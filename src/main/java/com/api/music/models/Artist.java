@@ -16,4 +16,11 @@ public class Artist {
     private String imageUrl;
     private String originCountry;
     private String genre;
+
+    public Artist(String name, String imageUrl, String originCountry, String genre) {
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.originCountry = originCountry;
+        this.genre = genre;
+    }
 }

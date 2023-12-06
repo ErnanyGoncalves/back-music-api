@@ -7,7 +7,9 @@ import org.springframework.boot.CommandLineRunner;
 
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class ArtistDataInitializer implements CommandLineRunner {
 
     private final ArtistRepository artistRepository;
@@ -26,7 +28,7 @@ public class ArtistDataInitializer implements CommandLineRunner {
                 new Artist("Ed Sheeran", "https://placehold.co/500", "uk", "pop"),
                 new Artist("Lady Gaga", "https://placehold.co/500", "usa", "pop"),
                 new Artist("Epica", "https://placehold.co/500", "netherlands", "metal"),
-                new Artist("David Guetta", "https://placehold.co/500", "france", "electronic"),
+                new Artist("David Guetta", "https://placehold.co/500", "france", "electronic")
             );
 
             artistRepository.saveAll(artists);

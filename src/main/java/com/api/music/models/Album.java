@@ -20,6 +20,16 @@ public class Album {
     private Integer numOfTracks;
     private Integer totalDuration;
     @ManyToOne
-    @JoinColumn(name = "artist")
+    @JoinColumn(name = "artist_id")
     private Artist artist;
+
+    public Album(String title, String imageUrl, Integer year, Integer numOfTracks,
+        Integer totalDuration, Artist artist) {
+        this.title = title;
+        this.imageUrl = imageUrl;
+        this.year = year;
+        this.numOfTracks = numOfTracks;
+        this.totalDuration = totalDuration;
+        this.artist = artist;
+    }
 }

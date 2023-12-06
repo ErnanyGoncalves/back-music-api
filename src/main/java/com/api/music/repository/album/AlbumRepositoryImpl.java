@@ -2,23 +2,24 @@ package com.api.music.repository.album;
 
 import com.api.music.models.Album;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Component
 public class AlbumRepositoryImpl implements AlbumRepositoryPort {
 
 
     private final AlbumRepository albumRepository;
 
-    @Autowired
+    @Lazy
     public AlbumRepositoryImpl(AlbumRepository albumRepository) {
         this.albumRepository = albumRepository;
     }
-
     @Override
     public List<Album> findAll(Integer page, Integer pageSize) {
         return albumRepository.findAll(PageRequest.of(page,pageSize)).getContent();

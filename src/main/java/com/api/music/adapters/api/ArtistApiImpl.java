@@ -3,7 +3,6 @@ package com.api.music.adapters.api;
 import com.api.music.models.Artist;
 import com.api.music.ports.ArtistApiPort;
 import com.api.music.usecases.artist.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class ArtistApiImpl implements ArtistApiPort {
     private final EditArtistUseCase editArtistUseCase;
     private final DeleteArtistUseCase deleteArtistUseCase;
 
-    @Autowired
+
     public ArtistApiImpl(GetArtistsUseCase getArtistsUseCase, GetArtistUseCase getArtistUseCase, CreateArtistUseCase createArtistUseCase, EditArtistUseCase editArtistUseCase, DeleteArtistUseCase deleteArtistUseCase) {
         this.getArtistsUseCase = getArtistsUseCase;
         this.getArtistUseCase = getArtistUseCase;
@@ -32,7 +31,7 @@ public class ArtistApiImpl implements ArtistApiPort {
         return getArtistsUseCase.getArtists(page,pageSize);
     }
 
-    @GetMapping
+    @GetMapping("/filter")
     public List<Artist> getArtists(@RequestParam("country") List<String> originCountries, @RequestParam("genre") List<String> genres,@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize) {
         return getArtistsUseCase.getArtists(originCountries,genres,page,pageSize);
     }

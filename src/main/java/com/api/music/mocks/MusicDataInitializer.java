@@ -8,7 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class MusicDataInitializer implements CommandLineRunner {
 
   private final MusicRepository musicRepository;
@@ -26,7 +28,7 @@ public class MusicDataInitializer implements CommandLineRunner {
         new Artist("Ed Sheeran", "https://placehold.co/500", "uk", "pop"),
         new Artist("Lady Gaga", "https://placehold.co/500", "usa", "pop"),
         new Artist("Epica", "https://placehold.co/500", "netherlands", "metal"),
-        new Artist("David Guetta", "https://placehold.co/500", "france", "electronic"),
+        new Artist("David Guetta", "https://placehold.co/500", "france", "electronic")
         );
 
     List<Album> albums = Arrays.asList(
