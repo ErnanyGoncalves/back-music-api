@@ -6,10 +6,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Music {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +29,5 @@ public class Music {
     @JoinColumn(name = "artist_id")
     private Artist artist;
 
-    public Music(String title, Integer trackNum, Integer duration, Album album, Artist artist) {
-        this.title = title;
-        this.trackNum = trackNum;
-        this.duration = duration;
-        this.album = album;
-        this.artist = artist;
-    }
+
 }

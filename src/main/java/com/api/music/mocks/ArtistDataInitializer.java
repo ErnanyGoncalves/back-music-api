@@ -7,9 +7,11 @@ import org.springframework.boot.CommandLineRunner;
 
 import java.util.Arrays;
 import java.util.List;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
+@Order(1)
 public class ArtistDataInitializer implements CommandLineRunner {
 
     private final ArtistRepository artistRepository;
@@ -19,18 +21,21 @@ public class ArtistDataInitializer implements CommandLineRunner {
         this.artistRepository = artistRepository;
     }
 
+    private List<Artist> getInitialArtists() {
+        return Arrays.asList(
+            new Artist(null,"Armin Van Buuren", "https://placehold.co/500", "netherlands", "electronic"),
+            new Artist(null,"TWICE", "https://placehold.co/500", "south korea", "k-pop"),
+            new Artist(null,"Ed Sheeran", "https://placehold.co/500", "uk", "pop"),
+            new Artist(null,"Lady Gaga", "https://placehold.co/500", "usa", "pop"),
+            new Artist(null,"Epica", "https://placehold.co/500", "netherlands", "metal"),
+            new Artist(null,"David Guetta", "https://placehold.co/500", "france", "electronic")
+        );
+    }
+
     @Override
     public void run(String... args) throws Exception {
         if (artistRepository.count() == 0) {
-            List<Artist> artists = Arrays.asList(
-                new Artist("Armin Van Buuren", "https://placehold.co/500", "netherlands", "electronic"),
-                new Artist("TWICE", "https://placehold.co/500", "south korea", "k-pop"),
-                new Artist("Ed Sheeran", "https://placehold.co/500", "uk", "pop"),
-                new Artist("Lady Gaga", "https://placehold.co/500", "usa", "pop"),
-                new Artist("Epica", "https://placehold.co/500", "netherlands", "metal"),
-                new Artist("David Guetta", "https://placehold.co/500", "france", "electronic")
-            );
-
+            List<Artist> artists = getInitialArtists();
             artistRepository.saveAll(artists);
         }
     }

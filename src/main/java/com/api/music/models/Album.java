@@ -6,10 +6,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +27,5 @@ public class Album {
     @JoinColumn(name = "artist_id")
     private Artist artist;
 
-    public Album(String title, String imageUrl, Integer year, Integer numOfTracks,
-        Integer totalDuration, Artist artist) {
-        this.title = title;
-        this.imageUrl = imageUrl;
-        this.year = year;
-        this.numOfTracks = numOfTracks;
-        this.totalDuration = totalDuration;
-        this.artist = artist;
-    }
+
 }

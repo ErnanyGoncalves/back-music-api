@@ -1,13 +1,17 @@
 package com.api.music.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +21,5 @@ public class Artist {
     private String originCountry;
     private String genre;
 
-    public Artist(String name, String imageUrl, String originCountry, String genre) {
-        this.name = name;
-        this.imageUrl = imageUrl;
-        this.originCountry = originCountry;
-        this.genre = genre;
-    }
+
 }
