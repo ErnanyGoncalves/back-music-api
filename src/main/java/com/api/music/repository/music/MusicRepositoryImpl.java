@@ -3,11 +3,9 @@ package com.api.music.repository.music;
 import com.api.music.models.Music;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class MusicRepositoryImpl implements MusicRepositoryPort {
