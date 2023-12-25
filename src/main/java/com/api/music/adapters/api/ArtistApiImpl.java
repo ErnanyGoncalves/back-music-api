@@ -1,5 +1,6 @@
 package com.api.music.adapters.api;
 
+import com.api.music.dtos.artist.ArtistDTO;
 import com.api.music.models.Artist;
 import com.api.music.ports.ArtistApiPort;
 import com.api.music.usecases.artist.*;
@@ -39,8 +40,9 @@ public class ArtistApiImpl implements ArtistApiPort {
     }
 
     @GetMapping("/{id}")
-    public Artist getArtist(@PathVariable("id") Long id) {
-        return getArtistUseCase.getArtist(id);
+    public ArtistDTO getArtist(@PathVariable("id") Long id) {
+        Artist artist =  getArtistUseCase.getArtist(id);
+        return new ArtistDTO(artist);
     }
 
     @PostMapping

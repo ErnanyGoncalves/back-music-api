@@ -1,5 +1,6 @@
 package com.api.music.adapters.api;
 
+import com.api.music.dtos.album.AlbumDTO;
 import com.api.music.models.Album;
 import com.api.music.ports.AlbumApiPort;
 import com.api.music.usecases.album.CreateAlbumUseCase;
@@ -58,8 +59,9 @@ public class AlbumApiImpl implements AlbumApiPort {
   }
 
   @GetMapping("/{id}")
-  public Album getAlbum(@PathVariable("id") Long id) {
-    return getAlbumUseCase.getAlbum(id);
+  public AlbumDTO getAlbum(@PathVariable("id") Long id) {
+    Album album = getAlbumUseCase.getAlbum(id);
+    return new AlbumDTO(album);
   }
 
   @PostMapping
