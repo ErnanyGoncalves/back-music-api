@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +33,11 @@ public class Album {
     private Artist artist;
 
 
+    public Album(Long id, String title, String imageUrl, Integer year, Artist artist) {
+        this.id = id;
+        this.title = title;
+        this.imageUrl = imageUrl;
+        this.year = year;
+        this.artist = artist;
+    }
 }

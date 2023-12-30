@@ -1,10 +1,11 @@
 package com.api.music.dtos.artist;
 
 
-import com.api.music.models.Artist;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class ArtistDTO {
 
     private Long id;
@@ -13,14 +14,4 @@ public class ArtistDTO {
     private String originCountry;
     private String genre;
 
-    public ArtistDTO(Artist artist) {
-        this.id = artist.getId();
-        this.name = artist.getName();
-        this.imageUrl = artist.getImageUrl();
-        this.originCountry = artist.getOriginCountry();
-        this.genre = artist.getGenre();
-    }
-
-    public ArtistDTO() {
-    }
 }

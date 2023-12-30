@@ -22,7 +22,6 @@ public class MusicDTO {
         this.duration = music.getDuration();
         this.album = new AlbumDTO(music.getAlbum());
         this.artist = new ArtistDTO(music.getArtist());
-
     }
 
     public MusicDTO() {

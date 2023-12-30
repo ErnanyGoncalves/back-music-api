@@ -26,7 +26,9 @@ public class CreateMusicUseCase {
 
     public void createMusic(Music music) {
         Album album = music.getAlbum();
-        albumRepository.save(new Album(album.getId(), album.getTitle(), album.getImageUrl(), album.getYear(), album.getNumOfTracks() + 1, album.getTotalDuration() + music.getDuration(), album.getArtist()));
+        album.setNumOfTracks(album.getNumOfTracks()+1);
+        album.setTotalDuration(album.getTotalDuration()+ music.getDuration());
+        albumRepository.save(album);
         try {
             musicRepository.save(music);
         } catch (DataIntegrityViolationException e) {

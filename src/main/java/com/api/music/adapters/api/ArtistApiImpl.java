@@ -1,6 +1,7 @@
 package com.api.music.adapters.api;
 
 import com.api.music.dtos.artist.ArtistDTO;
+import com.api.music.dtos.common.ResponseListDTO;
 import com.api.music.models.Artist;
 import com.api.music.ports.ArtistApiPort;
 import com.api.music.usecases.artist.*;
@@ -30,19 +31,21 @@ public class ArtistApiImpl implements ArtistApiPort {
 
 
     @GetMapping
-    public List<Artist> getArtists(@RequestParam(name="page",defaultValue = "1") Integer page , @RequestParam(name="pageSize",defaultValue = "10") Integer pageSize) {
-        return getArtistsUseCase.getArtists(page - 1,pageSize);
+    public ResponseListDTO<ArtistDTO> getArtists(@RequestParam(name="page",defaultValue = "1") Integer page , @RequestParam(name="pageSize",defaultValue = "10") Integer pageSize) {
+        List<ArtistDTO> listOfArtists = getArtistsUseCase.getArtists(page - 1,pageSize);
+        return new ResponseListDTO<>(listOfArtists,page,pageSize);
     }
 
     @GetMapping("/filter")
-    public List<Artist> getArtists(@RequestParam("country") List<String> originCountries, @RequestParam("genre") List<String> genres,@RequestParam(name="page",defaultValue = "1") Integer page, @RequestParam(name="pageSize",defaultValue = "10") Integer pageSize) {
-        return getArtistsUseCase.getArtists(originCountries,genres,page - 1,pageSize);
+    public ResponseListDTO<ArtistDTO> getArtists(@RequestParam("country") List<String> originCountries, @RequestParam("genre") List<String> genres,@RequestParam(name="page",defaultValue = "1") Integer page, @RequestParam(name="pageSize",defaultValue = "10") Integer pageSize) {
+        List<ArtistDTO> listOfArtists = getArtistsUseCase.getArtists(originCountries,genres,page - 1,pageSize);
+        return new ResponseListDTO<>(listOfArtists,page,pageSize);
     }
 
     @GetMapping("/{id}")
     public ArtistDTO getArtist(@PathVariable("id") Long id) {
-        Artist artist =  getArtistUseCase.getArtist(id);
-        return new ArtistDTO(artist);
+        return getArtistUseCase.getArtist(id);
+
     }
 
     @PostMapping
