@@ -2,9 +2,7 @@ package com.api.music.usecases.artist;
 
 import com.api.music.dtos.artist.ArtistDTO;
 import com.api.music.mappers.ArtistMapper;
-import com.api.music.models.Artist;
 import com.api.music.repository.artist.ArtistRepositoryPort;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +13,7 @@ public class GetArtistUseCase {
     private final ArtistRepositoryPort artistRepository;
     private final ArtistMapper artistMapper;
 
-
-
-
-
-    public ArtistDTO getArtist(Long id){
+    public ArtistDTO getArtist(Long id) {
         return artistRepository.findById(id).map(this.artistMapper::toDto).orElseThrow();
-
-
     }
 }

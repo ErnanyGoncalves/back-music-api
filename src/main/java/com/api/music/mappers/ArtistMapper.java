@@ -6,8 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface ArtistMapper {
-
-
-  ArtistDTO toDto(Artist artist);
-
+    ArtistDTO toDto(Artist artist);
 }

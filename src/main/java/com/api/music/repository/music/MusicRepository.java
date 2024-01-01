@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MusicRepository extends JpaRepository<Music,Long> {
+public interface MusicRepository extends JpaRepository<Music, Long> {
 
-    Page<Music> findByAlbumInAndArtistIn (List<String> albums, List<String> artists, Pageable pageable);
+    Page<Music> findByAlbumInAndArtistIn(List<String> albums, List<String> artists, Pageable pageable);
 
 }

@@ -1,9 +1,10 @@
 package com.api.music.dtos.album;
 
-import com.api.music.models.Album;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class AlbumDTO {
 
     private Long id;
@@ -13,15 +14,5 @@ public class AlbumDTO {
     private Integer numOfTracks;
     private Integer totalDuration;
 
-    public AlbumDTO(Album album) {
-        this.id=album.getId();
-        this.title=album.getTitle();
-        this.imageUrl = album.getImageUrl();
-        this.year = album.getYear();
-        this.numOfTracks = album.getNumOfTracks();
-        this.totalDuration = album.getTotalDuration();
-    }
 
-    public AlbumDTO() {
-    }
 }

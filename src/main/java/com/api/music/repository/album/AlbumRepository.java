@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AlbumRepository extends JpaRepository<Album,Long> {
+public interface AlbumRepository extends JpaRepository<Album, Long> {
 
-    Page<Album> findByYearInAndArtistIn (List<Integer> years, List<String> artists, Pageable pageable);
+    Page<Album> findByYearInAndArtistIn(List<Integer> years, List<String> artists, Pageable pageable);
 
 }

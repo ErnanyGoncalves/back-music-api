@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ArtistRepository  extends JpaRepository<Artist,Long> {
+public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
-    Page<Artist> findByOriginCountryInAndGenreIn (List<String> originCountries, List<String> genres, Pageable pageable);
+    Page<Artist> findByOriginCountryInAndGenreIn(List<String> originCountries, List<String> genres, Pageable pageable);
 
 }

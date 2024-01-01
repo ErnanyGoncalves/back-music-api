@@ -1,14 +1,12 @@
 package com.api.music.dtos.album;
 
 import com.api.music.dtos.artist.ArtistDTO;
-import com.api.music.models.Album;
-import com.api.music.models.Artist;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class AlbumAltDTO {
+public class AlbumWithArtistDTO {
 
     private Long id;
     private String title;
@@ -18,5 +16,5 @@ public class AlbumAltDTO {
     private Integer totalDuration;
     private ArtistDTO artist;
 
-    
+
 }

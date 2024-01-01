@@ -18,14 +18,15 @@ public class AlbumRepositoryImpl implements AlbumRepositoryPort {
     public AlbumRepositoryImpl(AlbumRepository albumRepository) {
         this.albumRepository = albumRepository;
     }
+
     @Override
     public List<Album> findAll(Integer page, Integer pageSize) {
-        return albumRepository.findAll(PageRequest.of(page,pageSize)).getContent();
+        return albumRepository.findAll(PageRequest.of(page, pageSize)).getContent();
     }
 
     @Override
     public List<Album> findAll(List<Integer> years, List<String> artists, Integer page, Integer pageSize) {
-          return albumRepository.findByYearInAndArtistIn(years, artists, PageRequest.of(page,pageSize)).getContent();
+        return albumRepository.findByYearInAndArtistIn(years, artists, PageRequest.of(page, pageSize)).getContent();
     }
 
     @Override
