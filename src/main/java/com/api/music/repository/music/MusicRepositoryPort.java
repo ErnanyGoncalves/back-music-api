@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MusicRepositoryPort {
-    List<Music> findAll(Integer page, Integer pageSize);
+//    List<Music> findAll(Integer page, Integer pageSize);
 
     List<Music> findAll(List<String> albums, List<String> artists, Integer page, Integer pageSize);
 

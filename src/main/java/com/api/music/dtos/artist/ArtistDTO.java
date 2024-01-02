@@ -8,10 +8,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ArtistDTO {
 
-    private Long id;
-    private String name;
-    private String imageUrl;
-    private String originCountry;
-    private String genre;
+    private final Long id;
+    private final String name;
+    private final String imageUrl;
+    private final String originCountry;
+    private final String genre;
 
 }

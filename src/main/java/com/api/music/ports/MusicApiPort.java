@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public interface MusicApiPort {
-    ResponseListDTO<MusicDTO> getMusics(Integer page, Integer pageSize);
+//    ResponseListDTO<MusicDTO> getMusics(Integer page, Integer pageSize);
 
     ResponseListDTO<MusicDTO> getMusics(List<String> albums, List<String> artists, Integer page, Integer pageSize);
 
