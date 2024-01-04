@@ -7,5 +7,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AlbumWithArtistMapper {
-    AlbumWithArtistDTO toDto(Album album);
+
+  AlbumWithArtistDTO toDto(Album album);
 }

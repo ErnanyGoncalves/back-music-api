@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CreateArtistUseCase {
 
-    private final ArtistRepositoryPort artistRepository;
+  private final ArtistRepositoryPort artistRepository;
 
-    public void createArtist(Artist artist) {
-        artistRepository.save(artist);
-    }
+  public void createArtist(Artist artist) {
+    artistRepository.save(artist);
+  }
 }

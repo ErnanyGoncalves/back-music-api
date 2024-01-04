@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CreateAlbumUseCase {
 
-    private final AlbumRepositoryPort albumRepository;
+  private final AlbumRepositoryPort albumRepository;
 
-    public void createAlbum(Album album) {
-        albumRepository.save(album);
-    }
+  public void createAlbum(Album album) {
+    albumRepository.save(album);
+  }
 }

@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class DeleteMusicUseCase {
 
-    private final MusicRepositoryPort musicRepository;
+  private final MusicRepositoryPort musicRepository;
 
-    public void deleteMusic(Long id) {
-        musicRepository.delete(id);
-    }
+  public void deleteMusic(Long id) {
+    musicRepository.delete(id);
+  }
 }

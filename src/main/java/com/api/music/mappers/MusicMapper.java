@@ -7,5 +7,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface MusicMapper {
-    MusicDTO toDto(Music music);
+
+  MusicDTO toDto(Music music);
 }

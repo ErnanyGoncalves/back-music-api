@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class DeleteAlbumUseCase {
 
-    private final AlbumRepositoryPort albumRepository;
+  private final AlbumRepositoryPort albumRepository;
 
-    public void deleteAlbum(Long id) {
-        albumRepository.delete(id);
-    }
+  public void deleteAlbum(Long id) {
+    albumRepository.delete(id);
+  }
 }

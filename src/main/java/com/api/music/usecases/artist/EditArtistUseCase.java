@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class EditArtistUseCase {
 
-    private final ArtistRepositoryPort artistRepository;
+  private final ArtistRepositoryPort artistRepository;
 
-    public void editArtist(Long id, Artist newArtistData) {
-        artistRepository.edit(id, newArtistData);
-    }
+  public void editArtist(Long id, Artist newArtistData) {
+    artistRepository.edit(id, newArtistData);
+  }
 }

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class GetArtistUseCase {
 
-    private final ArtistRepositoryPort artistRepository;
-    private final ArtistMapper artistMapper;
+  private final ArtistRepositoryPort artistRepository;
+  private final ArtistMapper artistMapper;
 
-    public ArtistDTO getArtist(Long id) {
-        return artistRepository.findById(id).map(this.artistMapper::toDto).orElseThrow();
-    }
+  public ArtistDTO getArtist(Long id) {
+    return artistRepository.findById(id).map(this.artistMapper::toDto).orElseThrow();
+  }
 }

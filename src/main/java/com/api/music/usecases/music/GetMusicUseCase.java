@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class GetMusicUseCase {
 
-    private final MusicRepositoryPort musicRepository;
-    private final MusicMapper musicMapper;
+  private final MusicRepositoryPort musicRepository;
+  private final MusicMapper musicMapper;
 
-    public MusicDTO getMusic(Long id) {
-        return musicRepository.findById(id).map(this.musicMapper::toDto).orElseThrow();
-    }
+  public MusicDTO getMusic(Long id) {
+    return musicRepository.findById(id).map(this.musicMapper::toDto).orElseThrow();
+  }
 }

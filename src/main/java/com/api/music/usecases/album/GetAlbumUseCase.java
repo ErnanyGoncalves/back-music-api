@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class GetAlbumUseCase {
 
-    private final AlbumRepositoryPort albumRepository;
-    private final AlbumWithArtistMapper albumMapper;
+  private final AlbumRepositoryPort albumRepository;
+  private final AlbumWithArtistMapper albumMapper;
 
 
-    public AlbumWithArtistDTO getAlbum(Long id) {
-        return albumRepository.findById(id).map(this.albumMapper::toDto).orElseThrow();
-    }
+  public AlbumWithArtistDTO getAlbum(Long id) {
+    return albumRepository.findById(id).map(this.albumMapper::toDto).orElseThrow();
+  }
 }

@@ -9,10 +9,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class MusicDTO {
-    private Long id;
-    private String title;
-    private Integer trackNum;
-    private Integer duration;
-    private AlbumDTO album;
-    private ArtistDTO artist;
+
+  private final Long id;
+  private final String title;
+  private final Integer trackNum;
+  private final Integer duration;
+  private final AlbumDTO album;
+  private final ArtistDTO artist;
 }

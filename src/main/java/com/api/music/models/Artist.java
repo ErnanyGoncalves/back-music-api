@@ -14,17 +14,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Artist {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotEmpty(message = "Field name is required.")
-    private String name;
-    private String imageUrl = "https://placehold.co/500";
-    @NotEmpty
-            (message = "Field originCountry is required.")
-    private String originCountry;
-    @NotEmpty(message = "Field genre is required.")
-    private String genre;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  @NotEmpty(message = "Field name is required.")
+  private String name;
+  private String imageUrl = "https://placehold.co/500";
+  @NotEmpty
+      (message = "Field originCountry is required.")
+  private String originCountry;
+  @NotEmpty(message = "Field genre is required.")
+  private String genre;
 
 
 }

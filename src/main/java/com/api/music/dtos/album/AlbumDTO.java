@@ -7,12 +7,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public class AlbumDTO {
 
-    private Long id;
-    private String title;
-    private String imageUrl;
-    private Integer year;
-    private Integer numOfTracks;
-    private Integer totalDuration;
+  private final Long id;
+  private final String title;
+  private final String imageUrl;
+  private final Integer year;
+  private final Integer numOfTracks;
+  private final Integer totalDuration;
 
 
 }
