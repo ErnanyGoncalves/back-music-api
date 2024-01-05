@@ -3,6 +3,7 @@ package com.api.music.adapters.api;
 import com.api.music.dtos.artist.ArtistDTO;
 import com.api.music.dtos.common.ResponseListDTO;
 import com.api.music.models.Artist;
+import com.api.music.models.Pagination;
 import com.api.music.ports.ArtistApiPort;
 import com.api.music.usecases.artist.CreateArtistUseCase;
 import com.api.music.usecases.artist.DeleteArtistUseCase;
@@ -44,7 +45,7 @@ public class ArtistApiImpl implements ArtistApiPort {
       @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
     List<ArtistDTO> listOfArtists = getArtistsUseCase.getArtists(originCountries, genres, page - 1,
         pageSize);
-    return new ResponseListDTO<>(listOfArtists, page, pageSize);
+    return new ResponseListDTO<>(listOfArtists, new Pagination(page,pageSize));
   }
 
   @GetMapping("/{id}")

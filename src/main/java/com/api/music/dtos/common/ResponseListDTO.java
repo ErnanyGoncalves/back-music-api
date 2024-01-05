@@ -1,5 +1,6 @@
 package com.api.music.dtos.common;
 
+import com.api.music.models.Pagination;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Getter;
 public class ResponseListDTO<T> {
 
   private final List<T> listOfData;
-  private final Integer currentPage;
-  private final Integer itemsPerPage;
+  private final Pagination pagination;
+//  private final Integer currentPage;
+//  private final Integer itemsPerPage;
 }
