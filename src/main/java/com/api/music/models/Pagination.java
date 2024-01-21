@@ -6,14 +6,16 @@ import lombok.NoArgsConstructor;
 
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Pagination {
 
   private Integer currentPage;
   private Integer itemsPerPage;
-//  private Integer itemsInThePage;
-//  private Long totalItems;
-//  private Integer totalPages;
-//  private Navigation navigationPaths;
+  private Long totalItems;
+  private Integer totalPages;
+  private Navigation navigationPaths;
+
+  public Pagination(Integer currentPage, Integer itemsPerPage) {
+    this.currentPage = currentPage;
+    this.itemsPerPage = itemsPerPage;
+  }
 }

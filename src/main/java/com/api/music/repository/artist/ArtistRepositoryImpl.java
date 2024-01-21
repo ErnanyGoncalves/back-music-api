@@ -10,7 +10,9 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.apache.catalina.connector.Response;
@@ -49,6 +51,22 @@ public class ArtistRepositoryImpl implements ArtistRepositoryPort {
       predicates.add(root.get("genre").in(genres));
     }
 
+
+    // ---------------------------------
+//    CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
+//    countQuery.select(criteriaBuilder.count(countQuery.from(Artist.class)));
+//    if (!predicates.isEmpty()) {
+//      countQuery.where(predicates.toArray(new Predicate[0]));
+//    }
+//    Long totalElements = entityManager.createQuery(countQuery).getSingleResult();
+//    Integer currentPage = page+1;
+//    Integer totalPages = (int) Math.ceil((double) totalElements/pageSize);
+
+    String queryParamsStr = buildArtistEndpoint(originCountries, genres, page, pageSize);
+
+
+    // ---------------------------------
+
     Pageable pageable = PageRequest.of(page, pageSize);
     if (predicates.isEmpty()) {
       return artistRepository.findAll(pageable).getContent();
@@ -62,6 +80,42 @@ public class ArtistRepositoryImpl implements ArtistRepositoryPort {
     return queryResult.getResultList();
   }
 
+  // ------------------------------
+  private static String buildArtistEndpoint(List<String> originCountries, List<String> genres, Integer page, Integer pageSize) {
+    Map<String, String> queryParams = new HashMap<>();
+
+    if (originCountries != null && !originCountries.isEmpty()) {
+      queryParams.put("country", String.join(",", originCountries));
+    }
+
+    if (genres != null && !genres.isEmpty()) {
+      queryParams.put("genre", String.join(",", genres));
+    }
+
+    if (page != null) {
+      queryParams.put("page", String.valueOf(page));
+    }
+
+    if (pageSize != null && pageSize != 10) {
+      queryParams.put("pageSize", String.valueOf(pageSize));
+    }
+
+    return buildQueryString(queryParams);
+  }
+
+  private static String buildQueryString(Map<String, String> queryParams) {
+    if (queryParams.isEmpty()) {
+      return "/artists";
+    } else {
+      StringBuilder queryString = new StringBuilder("/artists?");
+      for (Map.Entry<String, String> entry : queryParams.entrySet()) {
+        queryString.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+      }
+      queryString.deleteCharAt(queryString.length() - 1); // Remover o último "&"
+      return queryString.toString();
+    }
+  }
+ // -----------------------------
   @Override
   public Optional<Artist> findById(Long id) {
     return artistRepository.findById(id);
