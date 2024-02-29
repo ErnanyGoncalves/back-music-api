@@ -15,9 +15,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Artist {
-
-
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -30,6 +27,4 @@ public class Artist {
   private String originCountry;
   @NotEmpty(message = "Field genre is required.")
   private String genre;
-
-
 }

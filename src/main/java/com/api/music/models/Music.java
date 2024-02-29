@@ -27,13 +27,18 @@ import lombok.NoArgsConstructor;
 public class Music {
 
 
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @NotEmpty(message = "Field title is required.")
   private String title;
+  //  @Min(value = 1, message = "The trackNum has to be greater than 0.")
+  //  @NotNull(message = "Field trackNum is required.")
   @Min(value = 1, message = "Field trackNum has to be informed.")
   private Integer trackNum;
+  //  @Min(value = 1, message = "The duration has to be greater than 0.")
+  //  @NotNull(message = "Field duration is required.")
   @Min(value = 0, message = "Field duration has to be informed.")
   private Integer duration;
   @ManyToOne
