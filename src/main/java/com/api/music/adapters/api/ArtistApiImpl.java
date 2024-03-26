@@ -43,9 +43,10 @@ public class ArtistApiImpl implements ArtistApiPort {
       @RequestParam(name = "genre", required = false) List<String> genres,
       @RequestParam(name = "page", defaultValue = "1") Integer page,
       @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
-    List<ArtistDTO> listOfArtists = getArtistsUseCase.getArtists(originCountries, genres, page - 1,
+    return getArtistsUseCase.getArtists(originCountries, genres, page - 1,
         pageSize);
-    return new ResponseListDTO<>(listOfArtists, new Pagination(page,pageSize));
+
+
   }
 
   @GetMapping("/{id}")

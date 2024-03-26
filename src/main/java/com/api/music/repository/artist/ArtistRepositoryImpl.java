@@ -3,6 +3,7 @@ package com.api.music.repository.artist;
 import com.api.music.dtos.artist.ArtistDTO;
 import com.api.music.dtos.common.ResponseListDTO;
 import com.api.music.models.Artist;
+import com.api.music.models.Navigation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -19,6 +20,7 @@ import org.apache.catalina.connector.Response;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.util.Predicates;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -39,7 +41,9 @@ public class ArtistRepositoryImpl implements ArtistRepositoryPort {
   public List<Artist> findAll(List<String> originCountries, List<String> genres, Integer page,
       Integer pageSize) {
     CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
     CriteriaQuery<Artist> criteriaQuery = criteriaBuilder.createQuery(Artist.class);
+
     Root<Artist> root = criteriaQuery.from(Artist.class);
     List<Predicate> predicates = new ArrayList<>();
 
@@ -51,71 +55,55 @@ public class ArtistRepositoryImpl implements ArtistRepositoryPort {
       predicates.add(root.get("genre").in(genres));
     }
 
-
-    // ---------------------------------
-//    CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
-//    countQuery.select(criteriaBuilder.count(countQuery.from(Artist.class)));
-//    if (!predicates.isEmpty()) {
-//      countQuery.where(predicates.toArray(new Predicate[0]));
-//    }
-//    Long totalElements = entityManager.createQuery(countQuery).getSingleResult();
-//    Integer currentPage = page+1;
-//    Integer totalPages = (int) Math.ceil((double) totalElements/pageSize);
-
-    String queryParamsStr = buildArtistEndpoint(originCountries, genres, page, pageSize);
-
-
-    // ---------------------------------
-
-    Pageable pageable = PageRequest.of(page, pageSize);
-    if (predicates.isEmpty()) {
-      return artistRepository.findAll(pageable).getContent();
+    Predicate predicate = null;
+    if (!predicates.isEmpty()) {
+      predicate = criteriaBuilder.and(predicates.toArray(new Predicate[]{}));
     }
-    criteriaQuery.where(predicates.stream().toArray(Predicate[]::new));
+    if(Objects.nonNull(predicate)){
+      criteriaQuery.where(predicate);
+    }
+
+    criteriaQuery.select(root);
     TypedQuery<Artist> queryResult = this.entityManager.createQuery(criteriaQuery);
 
-    queryResult.setFirstResult(Long.valueOf(pageable.getOffset()).intValue());
-    queryResult.setMaxResults(pageable.getPageSize());
+    queryResult.setFirstResult(page*pageSize);
+    queryResult.setMaxResults(pageSize);
     
     return queryResult.getResultList();
   }
 
-  // ------------------------------
-  private static String buildArtistEndpoint(List<String> originCountries, List<String> genres, Integer page, Integer pageSize) {
-    Map<String, String> queryParams = new HashMap<>();
+  @Override
+  public Long count(List<String> originCountries, List<String> genres){
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
-    if (originCountries != null && !originCountries.isEmpty()) {
-      queryParams.put("country", String.join(",", originCountries));
+    CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
+
+    Root<Artist> root = countQuery.from(Artist.class);
+    List<Predicate> predicates = new ArrayList<>();
+
+    if (Objects.nonNull(originCountries) && !originCountries.isEmpty()) {
+      predicates.add(root.get("originCountry").in(originCountries));
     }
 
-    if (genres != null && !genres.isEmpty()) {
-      queryParams.put("genre", String.join(",", genres));
+    if (Objects.nonNull(genres) && !genres.isEmpty()) {
+      predicates.add(root.get("genre").in(genres));
     }
 
-    if (page != null) {
-      queryParams.put("page", String.valueOf(page));
+    Predicate predicate = null;
+    if (!predicates.isEmpty()) {
+      predicate = criteriaBuilder.and(predicates.toArray(new Predicate[]{}));
     }
-
-    if (pageSize != null && pageSize != 10) {
-      queryParams.put("pageSize", String.valueOf(pageSize));
+    if(Objects.nonNull(predicate)){
+      countQuery.where(predicate);
     }
+    countQuery.select(criteriaBuilder.count(root));
 
-    return buildQueryString(queryParams);
+    return entityManager.createQuery(countQuery).getSingleResult();
+
   }
 
-  private static String buildQueryString(Map<String, String> queryParams) {
-    if (queryParams.isEmpty()) {
-      return "/artists";
-    } else {
-      StringBuilder queryString = new StringBuilder("/artists?");
-      for (Map.Entry<String, String> entry : queryParams.entrySet()) {
-        queryString.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
-      }
-      queryString.deleteCharAt(queryString.length() - 1); // Remover o último "&"
-      return queryString.toString();
-    }
-  }
- // -----------------------------
+
+
   @Override
   public Optional<Artist> findById(Long id) {
     return artistRepository.findById(id);

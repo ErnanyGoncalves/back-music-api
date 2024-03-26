@@ -20,7 +20,7 @@ public class Artist {
   private Long id;
   @NotEmpty(message = "Field name is required.")
   private String name;
-  @Pattern(regexp = "https?:\\/\\/.*\\.(?:png|jpg)", message = "Invalid URL.")
+//  @Pattern(regexp = "https?:\\/\\/.*\\.(?:png|jpg)", message = "Invalid URL.")
   private String imageUrl = "https://placehold.co/500";
   @NotEmpty
       (message = "Field originCountry is required.")

@@ -10,6 +10,8 @@ public interface ArtistRepositoryPort {
   List<Artist> findAll(List<String> originCountries, List<String> genres, Integer page,
       Integer pageSize);
 
+  Long count(List<String> originCountries, List<String> genres);
+
   Optional<Artist> findById(Long id);
 
   void save(Artist artist);
