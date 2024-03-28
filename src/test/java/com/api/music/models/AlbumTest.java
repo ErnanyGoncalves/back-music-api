@@ -1,6 +1,6 @@
 package com.api.music.models;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -60,8 +60,12 @@ class AlbumTest {
 
     for (ConstraintViolation<Album> violation : violations) {
 
-      Boolean minViolationInfoExists = violation.getConstraintDescriptor().getAnnotation().toString().indexOf("constraints.Min")!= -1;
-      Boolean notNullViolationInfoExists = violation.getConstraintDescriptor().getAnnotation().toString().indexOf("constraints.NotNull")!= -1;
+      Boolean minViolationInfoExists =
+          violation.getConstraintDescriptor().getAnnotation().toString().indexOf("constraints.Min")
+              != -1;
+      Boolean notNullViolationInfoExists =
+          violation.getConstraintDescriptor().getAnnotation().toString()
+              .indexOf("constraints.NotNull") != -1;
       switch (violation.getPropertyPath().toString()) {
         case "title":
           assertEquals("Field title is required.", violation.getMessage());
@@ -70,10 +74,12 @@ class AlbumTest {
           assertEquals("Invalid URL.", violation.getMessage());
           break;
         case "year":
-          if(minViolationInfoExists)
+          if (minViolationInfoExists) {
             assertEquals("The year has to be greater than 0.", violation.getMessage());
-          if(notNullViolationInfoExists)
+          }
+          if (notNullViolationInfoExists) {
             assertEquals("Field year is required.", violation.getMessage());
+          }
           break;
         case "artist":
           assertEquals("The album must have an artist.", violation.getMessage());

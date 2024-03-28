@@ -1,11 +1,7 @@
 package com.api.music.usecases.artist;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.api.music.models.Artist;
 import com.api.music.models.Artist;
 import com.api.music.repository.artist.ArtistRepositoryPort;
-import com.api.music.usecases.artist.CreateArtistUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,7 +24,7 @@ class CreateArtistUseCaseTest {
 
   @Test
   public void testCreateArtist() {
-    Artist artist = new Artist(1L,"Lady Gaga",null,"United States","Pop");
+    Artist artist = new Artist(1L, "Lady Gaga", null, "United States", "Pop");
 
     createArtistUseCase.createArtist(artist);
 

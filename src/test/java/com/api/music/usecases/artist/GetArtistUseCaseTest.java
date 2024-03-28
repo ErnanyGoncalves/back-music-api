@@ -1,13 +1,12 @@
 package com.api.music.usecases.artist;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.api.music.dtos.artist.ArtistDTO;
-import com.api.music.dtos.music.MusicDTO;
 import com.api.music.mappers.ArtistMapper;
 import com.api.music.models.Artist;
 import com.api.music.repository.artist.ArtistRepositoryPort;
-import com.api.music.usecases.artist.GetArtistUseCase;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,18 +43,16 @@ class GetArtistUseCaseTest {
 
     Artist artist = new Artist();
 
-    ArtistDTO artistDTO = new ArtistDTO(id, name, imageUrl, originCountry,genre);
+    ArtistDTO artistDTO = new ArtistDTO(id, name, imageUrl, originCountry, genre);
 
     Mockito.when(artistRepository.findById(id)).thenReturn(Optional.of(artist));
     Mockito.when(artistMapper.toDto(artist)).thenReturn(artistDTO);
 
     ArtistDTO result = getArtistUseCase.getArtist(id);
 
-
     assertEquals(artistDTO, result);
-    Mockito.verify(artistRepository , Mockito.times(1)).findById(id);
+    Mockito.verify(artistRepository, Mockito.times(1)).findById(id);
     Mockito.verify(artistMapper, Mockito.times(1)).toDto(artist);
-
 
 
   }
@@ -63,10 +60,8 @@ class GetArtistUseCaseTest {
   @Test
   public void testGetArtistNotFound() {
 
-
     Long id = 1L;
     Mockito.when(artistRepository.findById(id)).thenReturn(Optional.empty());
-
 
     assertThrows(NoSuchElementException.class, () -> getArtistUseCase.getArtist(id));
     Mockito.verify(artistRepository, Mockito.times(1)).findById(id);

@@ -27,7 +27,6 @@ import lombok.NoArgsConstructor;
 public class Music {
 
 
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

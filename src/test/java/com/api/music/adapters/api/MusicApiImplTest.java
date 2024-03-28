@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.api.music.dtos.album.AlbumDTO;
-import com.api.music.dtos.album.AlbumWithArtistDTO;
 import com.api.music.dtos.artist.ArtistDTO;
 import com.api.music.dtos.music.MusicDTO;
 import com.api.music.models.Album;
@@ -36,6 +35,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @AutoConfigureMockMvc
 class MusicApiImplTest {
+
   @Autowired
   private MockMvc mockMvc;
 
@@ -59,20 +59,21 @@ class MusicApiImplTest {
     String imageUrl = "http://example.com/image.jpg";
     String originCountry = "country";
     String genre = "genre";
-    ArtistDTO mockArtist = new ArtistDTO(id,name,imageUrl,originCountry,genre);
+    ArtistDTO mockArtist = new ArtistDTO(id, name, imageUrl, originCountry, genre);
 
     String title = "title";
     Integer year = 2000;
     Integer numOfTracks = 1;
     Integer totalDuration = 3000;
-    AlbumDTO mockAlbum = new AlbumDTO(id,title,imageUrl,year,numOfTracks,totalDuration);
+    AlbumDTO mockAlbum = new AlbumDTO(id, title, imageUrl, year, numOfTracks, totalDuration);
 
     Integer trackNum = 1;
     Integer duration = 3000;
-    List<MusicDTO> mockMusics = Collections.singletonList(new MusicDTO(id,title,trackNum,duration,mockAlbum,mockArtist));
-    Mockito.when(getMusicsUseCase.getMusics(Mockito.anyList(), Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt()))
+    List<MusicDTO> mockMusics = Collections.singletonList(
+        new MusicDTO(id, title, trackNum, duration, mockAlbum, mockArtist));
+    Mockito.when(getMusicsUseCase.getMusics(Mockito.anyList(), Mockito.anyList(), Mockito.anyInt(),
+            Mockito.anyInt()))
         .thenReturn(mockMusics);
-
 
     mockMvc.perform(get("/musics")
             .contentType(MediaType.APPLICATION_JSON))
@@ -91,21 +92,20 @@ class MusicApiImplTest {
     String imageUrl = "http://example.com/image.jpg";
     String originCountry = "country";
     String genre = "genre";
-    ArtistDTO mockArtist = new ArtistDTO(id,name,imageUrl,originCountry,genre);
+    ArtistDTO mockArtist = new ArtistDTO(id, name, imageUrl, originCountry, genre);
 
     String title = "title";
     Integer year = 2000;
     Integer numOfTracks = 1;
     Integer totalDuration = 3000;
-    AlbumDTO mockAlbum = new AlbumDTO(id,title,imageUrl,year,numOfTracks,totalDuration);
+    AlbumDTO mockAlbum = new AlbumDTO(id, title, imageUrl, year, numOfTracks, totalDuration);
 
     Integer trackNum = 1;
     Integer duration = 3000;
-    MusicDTO mockMusic = new MusicDTO(id,title,trackNum,duration,mockAlbum,mockArtist);
+    MusicDTO mockMusic = new MusicDTO(id, title, trackNum, duration, mockAlbum, mockArtist);
 
     Mockito.when(getMusicUseCase.getMusic(id))
         .thenReturn(mockMusic);
-
 
     mockMvc.perform(get("/musics/1")
             .contentType(MediaType.APPLICATION_JSON))
@@ -127,16 +127,15 @@ class MusicApiImplTest {
     String imageUrl = "http://example.com/image.jpg";
     String originCountry = "country";
     String genre = "genre";
-    Artist mockArtist = new Artist(id,name,imageUrl,originCountry,genre);
+    Artist mockArtist = new Artist(id, name, imageUrl, originCountry, genre);
 
     String title = "title";
     Integer year = 2000;
-    Album mockAlbum = new Album(id,title,imageUrl,year,mockArtist);
+    Album mockAlbum = new Album(id, title, imageUrl, year, mockArtist);
 
     Integer trackNum = 1;
     Integer duration = 3000;
-    Music mockMusic = new Music(id,title,trackNum,duration,mockAlbum,mockArtist);
-
+    Music mockMusic = new Music(id, title, trackNum, duration, mockAlbum, mockArtist);
 
     mockMvc.perform(post("/musics")
             .content(new ObjectMapper().writeValueAsString(mockMusic))
@@ -154,23 +153,23 @@ class MusicApiImplTest {
     String imageUrl = "http://example.com/image.jpg";
     String originCountry = "country";
     String genre = "genre";
-    Artist mockArtist = new Artist(id,name,imageUrl,originCountry,genre);
+    Artist mockArtist = new Artist(id, name, imageUrl, originCountry, genre);
 
     String title = "title";
     Integer year = 2000;
 
-    Album mockAlbum = new Album(null,title,imageUrl,year,mockArtist);
+    Album mockAlbum = new Album(null, title, imageUrl, year, mockArtist);
 
     Integer trackNum = 1;
     Integer duration = 3000;
-    Music mockMusic = new Music(id,title,trackNum,duration,mockAlbum,mockArtist);
+    Music mockMusic = new Music(id, title, trackNum, duration, mockAlbum, mockArtist);
 
     mockMvc.perform(put("/musics/1")
             .content(new ObjectMapper().writeValueAsString(mockMusic))
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
 
-    Mockito.verify(editMusicUseCase).editMusic(id,mockMusic);
+    Mockito.verify(editMusicUseCase).editMusic(id, mockMusic);
   }
 
   @Test

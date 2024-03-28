@@ -1,9 +1,6 @@
 package com.api.music.usecases.music;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.api.music.repository.music.MusicRepositoryPort;
-import com.api.music.usecases.music.DeleteMusicUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 class DeleteMusicUseCaseTest {
+
   @Mock
   private MusicRepositoryPort musicRepository;
 

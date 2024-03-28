@@ -1,10 +1,11 @@
 package com.api.music.dtos.album;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 class AlbumDTOTest {
+
   @Test
   public void testAlbumDTO() {
 

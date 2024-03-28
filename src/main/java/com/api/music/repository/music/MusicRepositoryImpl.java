@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -38,26 +36,67 @@ public class MusicRepositoryImpl implements MusicRepositoryPort {
       Integer pageSize) {
     CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
     CriteriaQuery<Music> criteriaQuery = criteriaBuilder.createQuery(Music.class);
+
     Root<Music> root = criteriaQuery.from(Music.class);
     List<Predicate> predicates = new ArrayList<>();
+
     Join<Music, Album> albumJoin = root.join("album");
     Join<Music, Artist> artistJoin = root.join("artist");
+
     if (Objects.nonNull(albums) && !albums.isEmpty()) {
       predicates.add(albumJoin.get("title").in(albums));
     }
     if (Objects.nonNull(artists) && !artists.isEmpty()) {
       predicates.add(artistJoin.get("name").in(artists));
     }
-    Pageable pageable = PageRequest.of(page, pageSize);
-      if (predicates.isEmpty()) {
-          return musicRepository.findAll(pageable).getContent();
-      }
-    criteriaQuery.where(predicates.stream().toArray(Predicate[]::new));
+
+    Predicate predicate = null;
+    if (!predicates.isEmpty()) {
+      predicate = criteriaBuilder.and(predicates.toArray(new Predicate[]{}));
+    }
+    if (Objects.nonNull(predicate)) {
+      criteriaQuery.where(predicate);
+    }
+
+    criteriaQuery.select(root);
     TypedQuery<Music> queryResult = this.entityManager.createQuery(criteriaQuery);
 
-    queryResult.setFirstResult(Long.valueOf(pageable.getOffset()).intValue());
-    queryResult.setMaxResults(pageable.getPageSize());
+    queryResult.setFirstResult(page * pageSize);
+    queryResult.setMaxResults(pageSize);
+
     return queryResult.getResultList();
+  }
+
+  @Override
+  public Long count(List<String> albums, List<String> artists) {
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+    CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
+
+    Root<Music> root = countQuery.from(Music.class);
+    List<Predicate> predicates = new ArrayList<>();
+
+    Join<Music, Album> albumJoin = root.join("album");
+    Join<Music, Artist> artistJoin = root.join("artist");
+
+    if (Objects.nonNull(albums) && !albums.isEmpty()) {
+      predicates.add(albumJoin.get("title").in(albums));
+    }
+    if (Objects.nonNull(artists) && !artists.isEmpty()) {
+      predicates.add(artistJoin.get("name").in(artists));
+    }
+
+    Predicate predicate = null;
+    if (!predicates.isEmpty()) {
+      predicate = criteriaBuilder.and(predicates.toArray(new Predicate[]{}));
+    }
+    if (Objects.nonNull(predicate)) {
+      countQuery.where(predicate);
+    }
+    countQuery.select(criteriaBuilder.count(root));
+
+    return entityManager.createQuery(countQuery).getSingleResult();
+
   }
 
   @Override

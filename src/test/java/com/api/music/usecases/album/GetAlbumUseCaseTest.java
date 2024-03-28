@@ -1,7 +1,7 @@
 package com.api.music.usecases.album;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.api.music.dtos.album.AlbumWithArtistDTO;
 import com.api.music.dtos.artist.ArtistDTO;
@@ -41,31 +41,29 @@ class GetAlbumUseCaseTest {
     Integer year = 2022;
     Integer numOfTracks = 10;
     Integer totalDuration = 3600;
-    ArtistDTO artist = new ArtistDTO(1L,"Artist","http://example.com/image.jpg","Country","Genre");
-
+    ArtistDTO artist = new ArtistDTO(1L, "Artist", "http://example.com/image.jpg", "Country",
+        "Genre");
 
     Album album = new Album();
 
-    AlbumWithArtistDTO albumDTO = new AlbumWithArtistDTO(id, title, imageUrl, year,numOfTracks,totalDuration,artist);
+    AlbumWithArtistDTO albumDTO = new AlbumWithArtistDTO(id, title, imageUrl, year, numOfTracks,
+        totalDuration, artist);
 
     Mockito.when(albumRepository.findById(id)).thenReturn(Optional.of(album));
     Mockito.when(albumMapper.toDto(album)).thenReturn(albumDTO);
 
     AlbumWithArtistDTO result = getAlbumUseCase.getAlbum(id);
 
-
     assertEquals(albumDTO, result);
-    Mockito.verify(albumRepository , Mockito.times(1)).findById(id);
+    Mockito.verify(albumRepository, Mockito.times(1)).findById(id);
     Mockito.verify(albumMapper, Mockito.times(1)).toDto(album);
   }
 
   @Test
   public void testGetAlbumNotFound() {
 
-
     Long id = 1L;
     Mockito.when(albumRepository.findById(id)).thenReturn(Optional.empty());
-
 
     assertThrows(NoSuchElementException.class, () -> getAlbumUseCase.getAlbum(id));
     Mockito.verify(albumRepository, Mockito.times(1)).findById(id);

@@ -12,9 +12,4 @@ public class Pagination {
   private Long totalItems;
   private Integer totalPages;
   private Navigation navigationPaths;
-
-  public Pagination(Integer currentPage, Integer itemsPerPage) {
-    this.currentPage = currentPage;
-    this.itemsPerPage = itemsPerPage;
-  }
 }

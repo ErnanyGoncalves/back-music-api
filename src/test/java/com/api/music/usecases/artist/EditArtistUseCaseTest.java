@@ -1,12 +1,9 @@
 package com.api.music.usecases.artist;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.api.music.models.Album;
 import com.api.music.models.Artist;
-import com.api.music.repository.album.AlbumRepositoryPort;
 import com.api.music.repository.artist.ArtistRepositoryPort;
-import com.api.music.usecases.album.EditAlbumUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -37,7 +34,6 @@ class EditArtistUseCaseTest {
 
     Mockito.doNothing().when(artistRepository).edit(id, newArtistData);
 
-
     editArtistUseCase.editArtist(id, newArtistData);
 
     Mockito.verify(artistRepository, Mockito.times(1)).edit(id, newArtistData);
@@ -49,8 +45,8 @@ class EditArtistUseCaseTest {
     Long id = 1L;
     Artist newArtistData = new Artist(id, "Lady Gaga", null, "United States", "Pop");
 
-
-    Mockito.doThrow(new RuntimeException("Repository exception")).when(artistRepository).edit(id, newArtistData);
+    Mockito.doThrow(new RuntimeException("Repository exception")).when(artistRepository)
+        .edit(id, newArtistData);
 
     assertThrows(RuntimeException.class, () -> editArtistUseCase.editArtist(id, newArtistData));
   }

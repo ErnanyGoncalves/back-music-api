@@ -1,19 +1,19 @@
 package com.api.music.models;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
 class NavigationTest {
+
   @Test
   public void testNavigationConstructor() {
 
     String previousPage = "http://example.com/previous";
     String nextPage = "http://example.com/next";
 
-
     Navigation navigation = new Navigation(previousPage, nextPage);
-
 
     assertEquals(previousPage, navigation.getPreviousPage());
     assertEquals(nextPage, navigation.getNextPage());
@@ -26,10 +26,8 @@ class NavigationTest {
     String nextPage = "http://example.com/next";
     Navigation navigation = new Navigation();
 
-
     navigation.setPreviousPage(previousPage);
     navigation.setNextPage(nextPage);
-
 
     assertEquals(previousPage, navigation.getPreviousPage());
     assertEquals(nextPage, navigation.getNextPage());
@@ -39,7 +37,6 @@ class NavigationTest {
   public void testNavigationNoArgsConstructor() {
 
     Navigation navigation = new Navigation();
-
 
     assertNull(navigation.getPreviousPage());
     assertNull(navigation.getNextPage());

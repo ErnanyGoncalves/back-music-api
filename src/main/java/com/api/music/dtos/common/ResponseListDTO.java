@@ -11,6 +11,4 @@ public class ResponseListDTO<T> {
 
   private final List<T> listOfData;
   private final Pagination pagination;
-//  private final Integer currentPage;
-//  private final Integer itemsPerPage;
 }

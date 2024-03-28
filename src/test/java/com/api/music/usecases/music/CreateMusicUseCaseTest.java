@@ -1,13 +1,13 @@
 package com.api.music.usecases.music;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.api.music.models.Album;
-import com.api.music.models.Music;
 import com.api.music.models.Artist;
+import com.api.music.models.Music;
 import com.api.music.repository.album.AlbumRepositoryPort;
 import com.api.music.repository.music.MusicRepositoryPort;
-import com.api.music.usecases.music.CreateMusicUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -50,15 +50,17 @@ class CreateMusicUseCaseTest {
     Mockito.verify(albumRepository, Mockito.times(1)).save(album);
     Mockito.verify(musicRepository, Mockito.times(1)).save(music);
 
-    assertEquals(1,album.getNumOfTracks() );
+    assertEquals(1, album.getNumOfTracks());
     assertEquals(music.getDuration(), album.getTotalDuration());
   }
 
   @Test
   public void testCreateMusicDuplicateTrackNumber() {
 
-    Mockito.doThrow(DataIntegrityViolationException.class).when(albumRepository).save(Mockito.any(Album.class));
+    Mockito.doThrow(DataIntegrityViolationException.class).when(albumRepository)
+        .save(Mockito.any(Album.class));
 
-    assertThrows(DataIntegrityViolationException.class, () -> createMusicUseCase.createMusic(music));
+    assertThrows(DataIntegrityViolationException.class,
+        () -> createMusicUseCase.createMusic(music));
   }
 }

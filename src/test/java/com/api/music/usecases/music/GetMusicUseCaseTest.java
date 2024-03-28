@@ -1,6 +1,7 @@
 package com.api.music.usecases.music;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.api.music.dtos.album.AlbumDTO;
 import com.api.music.dtos.artist.ArtistDTO;
@@ -18,6 +19,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 class GetMusicUseCaseTest {
+
   @Mock
   private MusicRepositoryPort musicRepository;
 
@@ -39,18 +41,17 @@ class GetMusicUseCaseTest {
     String title = "Title";
     Integer trackNum = 1;
     Integer duration = 3600;
-    AlbumDTO album = new AlbumDTO(1L,"Title","http://example.com/image.jpg",2000,10,3600);
-    ArtistDTO artist = new ArtistDTO(1L,"Artist","http://example.com/image.jpg","Country","Genre");
+    AlbumDTO album = new AlbumDTO(1L, "Title", "http://example.com/image.jpg", 2000, 10, 3600);
+    ArtistDTO artist = new ArtistDTO(1L, "Artist", "http://example.com/image.jpg", "Country",
+        "Genre");
 
     Music music = new Music();
 
-    MusicDTO musicDTO = new MusicDTO(id,title,trackNum,duration,album,artist);
+    MusicDTO musicDTO = new MusicDTO(id, title, trackNum, duration, album, artist);
     Mockito.when(musicRepository.findById(id)).thenReturn(Optional.of(music));
     Mockito.when(musicMapper.toDto(music)).thenReturn(musicDTO);
 
-
     MusicDTO result = getMusicUseCase.getMusic(id);
-
 
     assertEquals(musicDTO, result);
     Mockito.verify(musicRepository, Mockito.times(1)).findById(id);
@@ -62,7 +63,6 @@ class GetMusicUseCaseTest {
 
     Long id = 1L;
     Mockito.when(musicRepository.findById(id)).thenReturn(Optional.empty());
-
 
     assertThrows(NoSuchElementException.class, () -> getMusicUseCase.getMusic(id));
     Mockito.verify(musicRepository, Mockito.times(1)).findById(id);

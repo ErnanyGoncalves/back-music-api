@@ -1,7 +1,5 @@
 package com.api.music.usecases.album;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.api.music.repository.album.AlbumRepositoryPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 class DeleteAlbumUseCaseTest {
+
   @Mock
   private AlbumRepositoryPort albumRepository;
 

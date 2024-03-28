@@ -9,6 +9,8 @@ public interface AlbumRepositoryPort {
 
   List<Album> findAll(List<Integer> years, List<String> artists, Integer page, Integer pageSize);
 
+  Long count(List<Integer> years, List<String> artists);
+
   Optional<Album> findById(Long id);
 
   void save(Album album);

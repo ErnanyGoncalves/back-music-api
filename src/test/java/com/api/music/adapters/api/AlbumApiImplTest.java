@@ -57,16 +57,17 @@ class AlbumApiImplTest {
     String imageUrl = "http://example.com/image.jpssssssssg";
     String originCountry = "country";
     String genre = "genre";
-    ArtistDTO mockArtist = new ArtistDTO(id,name,imageUrl,originCountry,genre);
+    ArtistDTO mockArtist = new ArtistDTO(id, name, imageUrl, originCountry, genre);
 
     String title = "title";
     Integer year = 2000;
     Integer numOfTracks = 0;
     Integer totalDuration = 0;
-    List<AlbumWithArtistDTO> mockAlbums = Collections.singletonList(new AlbumWithArtistDTO(id,title,imageUrl,year,numOfTracks,totalDuration,mockArtist));
-    Mockito.when(getAlbumsUseCase.getAlbums(Mockito.anyList(), Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt()))
+    List<AlbumWithArtistDTO> mockAlbums = Collections.singletonList(
+        new AlbumWithArtistDTO(id, title, imageUrl, year, numOfTracks, totalDuration, mockArtist));
+    Mockito.when(getAlbumsUseCase.getAlbums(Mockito.anyList(), Mockito.anyList(), Mockito.anyInt(),
+            Mockito.anyInt()))
         .thenReturn(mockAlbums);
-
 
     mockMvc.perform(get("/albums")
             .contentType(MediaType.APPLICATION_JSON))
@@ -85,17 +86,17 @@ class AlbumApiImplTest {
     String imageUrl = "http://example.com/image.jpg";
     String originCountry = "country";
     String genre = "genre";
-    ArtistDTO mockArtist = new ArtistDTO(id,name,imageUrl,originCountry,genre);
+    ArtistDTO mockArtist = new ArtistDTO(id, name, imageUrl, originCountry, genre);
 
     String title = "title";
     Integer year = 2000;
     Integer numOfTracks = 0;
     Integer totalDuration = 0;
-    AlbumWithArtistDTO mockAlbum = new AlbumWithArtistDTO(id,title,imageUrl,year,numOfTracks,totalDuration,mockArtist);
+    AlbumWithArtistDTO mockAlbum = new AlbumWithArtistDTO(id, title, imageUrl, year, numOfTracks,
+        totalDuration, mockArtist);
 
     Mockito.when(getAlbumUseCase.getAlbum(id))
         .thenReturn(mockAlbum);
-
 
     mockMvc.perform(get("/albums/1")
             .contentType(MediaType.APPLICATION_JSON))
@@ -107,7 +108,7 @@ class AlbumApiImplTest {
         .andExpect(jsonPath("$.year").value(year))
         .andExpect(jsonPath("$.numOfTracks").value(numOfTracks))
         .andExpect(jsonPath("$.totalDuration").value(totalDuration));
-        //.andExpect(jsonPath("$.artist").value(mockArtist));    //COMO FAZER O EXPECT DE UM OBJETO?
+    //.andExpect(jsonPath("$.artist").value(mockArtist));    //COMO FAZER O EXPECT DE UM OBJETO?
   }
 
   @Test
@@ -118,13 +119,11 @@ class AlbumApiImplTest {
     String imageUrl = "http://example.com/image.jpg";
     String originCountry = "country";
     String genre = "genre";
-    Artist mockArtist = new Artist(id,name,imageUrl,originCountry,genre);
+    Artist mockArtist = new Artist(id, name, imageUrl, originCountry, genre);
 
     String title = "title";
     Integer year = 2000;
-    Album mockAlbum = new Album(null,title,imageUrl,year,mockArtist);
-
-
+    Album mockAlbum = new Album(null, title, imageUrl, year, mockArtist);
 
     mockMvc.perform(post("/albums")
             .content(new ObjectMapper().writeValueAsString(mockAlbum))
@@ -142,20 +141,18 @@ class AlbumApiImplTest {
     String imageUrl = "http://example.com/image.jpg";
     String originCountry = "country";
     String genre = "genre";
-    Artist mockArtist = new Artist(id,name,imageUrl,originCountry,genre);
+    Artist mockArtist = new Artist(id, name, imageUrl, originCountry, genre);
 
     String title = "title";
     Integer year = 2000;
-    Album mockAlbum = new Album(null,title,imageUrl,year,mockArtist);
-
-
+    Album mockAlbum = new Album(null, title, imageUrl, year, mockArtist);
 
     mockMvc.perform(put("/albums/1")
             .content(new ObjectMapper().writeValueAsString(mockAlbum))
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
 
-    Mockito.verify(editAlbumUseCase).editAlbum(id,mockAlbum);
+    Mockito.verify(editAlbumUseCase).editAlbum(id, mockAlbum);
   }
 
   @Test

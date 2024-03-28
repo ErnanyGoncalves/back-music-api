@@ -1,7 +1,6 @@
 package com.api.music.models;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -11,11 +10,13 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 class ArtistTest {
+
   private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
   private final Validator validator = factory.getValidator();
+
   @Test
   public void testConstructorArtist() {
-    Artist artist = new Artist(1L,"Lady Gaga",null,"United States","Pop");
+    Artist artist = new Artist(1L, "Lady Gaga", null, "United States", "Pop");
     Set<ConstraintViolation<Artist>> violations = validator.validate(artist);
 
     assertEquals(0, violations.size());
@@ -23,7 +24,7 @@ class ArtistTest {
     assertEquals("Lady Gaga", artist.getName());
     // PQ EU TENHO Q SETAR 1o A URL pra poder verificar? O valor null não colocaria automaticamente?
     artist.setImageUrl("https://placehold.co/500");
-        assertEquals("https://placehold.co/500", artist.getImageUrl());
+    assertEquals("https://placehold.co/500", artist.getImageUrl());
     assertEquals("United States", artist.getOriginCountry());
     assertEquals("Pop", artist.getGenre());
   }
@@ -40,14 +41,14 @@ class ArtistTest {
 
   @Test
   public void testConstructorArtistErrors2() {
-    Artist artist = new Artist(1L,"Lady Gaga","http://www.google.com","United States","Pop");
+    Artist artist = new Artist(1L, "Lady Gaga", "http://www.google.com", "United States", "Pop");
     Set<ConstraintViolation<Artist>> violations = validator.validate(artist);
     assertEquals(1, violations.size());
 
     artistValidationMessages(violations);
   }
 
-  private void artistValidationMessages( Set<ConstraintViolation<Artist>> violations){
+  private void artistValidationMessages(Set<ConstraintViolation<Artist>> violations) {
     for (ConstraintViolation<Artist> violation : violations) {
       switch (violation.getPropertyPath().toString()) {
         case "name":

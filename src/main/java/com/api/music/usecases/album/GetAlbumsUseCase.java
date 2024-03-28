@@ -1,9 +1,13 @@
 package com.api.music.usecases.album;
 
 import com.api.music.dtos.album.AlbumWithArtistDTO;
+import com.api.music.dtos.common.ResponseListDTO;
 import com.api.music.mappers.AlbumWithArtistMapper;
+import com.api.music.models.Navigation;
+import com.api.music.models.Pagination;
 import com.api.music.repository.album.AlbumRepositoryPort;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +19,69 @@ public class GetAlbumsUseCase {
   private final AlbumWithArtistMapper albumMapper;
 
 
-  public List<AlbumWithArtistDTO> getAlbums(List<Integer> years, List<String> artists, Integer page,
+  public ResponseListDTO<AlbumWithArtistDTO> getAlbums(List<Integer> years, List<String> artists,
+      Integer page,
       Integer pageSize) {
-    return albumRepository.findAll(years, artists, page, pageSize).stream()
+    List<AlbumWithArtistDTO> listOfAlbums = albumRepository.findAll(years, artists, page, pageSize)
+        .stream()
         .map(this.albumMapper::toDto).toList();
+
+    Long totalElements = albumRepository.count(years, artists);
+
+    Integer currentPage = page + 1;
+    Integer totalPages = (int) Math.ceil((double) totalElements / pageSize);
+
+    String filters = buildFilters(pageSize, years, artists);
+    Navigation navigationPaths = buildNavigation(currentPage, totalPages, filters);
+
+    return new ResponseListDTO<>(listOfAlbums,
+        new Pagination(currentPage, pageSize, totalElements, totalPages, navigationPaths));
+  }
+
+  private String buildFilters(Integer pageSize, List<Integer> years, List<String> artists) {
+
+    StringBuilder filterString = new StringBuilder("");
+
+    if (pageSize != null && pageSize != 10) {
+      filterString.append("&pageSize=" + String.valueOf(pageSize));
+    }
+
+    if (years != null && !years.isEmpty()) {
+      filterString.append("&year=" + years.stream()
+          .map(String::valueOf)
+          .collect(Collectors.joining(",")));
+    }
+
+    if (artists != null && !artists.isEmpty()) {
+      filterString.append("&artist=" + String.join(",", artists));
+    }
+
+    return filterString.toString();
+  }
+
+
+  private Navigation buildNavigation(Integer currentPage, Integer totalPages, String filters) {
+    Integer pPage = null;
+    Integer cPage = currentPage;
+    Integer nPage = null;
+
+    if (cPage > 1) {
+      pPage = cPage - 1;
+    }
+    if (cPage < totalPages) {
+      nPage = cPage + 1;
+    }
+
+    String pPageStr = null;
+    String cPageStr = new StringBuilder("/albums?page=" + cPage + filters).toString();
+    String nPageStr = null;
+
+    if (pPage != null) {
+      pPageStr = new StringBuilder("/albums?page=" + pPage + filters).toString();
+    }
+    if (nPage != null) {
+      nPageStr = new StringBuilder("/albums?page=" + nPage + filters).toString();
+    }
+    return new Navigation(pPageStr, cPageStr, nPageStr);
   }
 }

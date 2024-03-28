@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonInclude(Include.NON_NULL)
 public class Navigation {
+
   private String previousPage;
   private String currentPage;
   private String nextPage;

@@ -1,10 +1,11 @@
 package com.api.music.dtos.artist;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 class ArtistDTOTest {
+
   @Test
   public void testArtistDTO() {
 
@@ -14,13 +15,13 @@ class ArtistDTOTest {
     String originCountry = "Country";
     String genre = "Genre";
 
-    ArtistDTO artistDTO = new ArtistDTO(id, name, imageUrl, originCountry,genre);
+    ArtistDTO artistDTO = new ArtistDTO(id, name, imageUrl, originCountry, genre);
 
     assertEquals(id, artistDTO.getId());
     assertEquals(name, artistDTO.getName());
     assertEquals(imageUrl, artistDTO.getImageUrl());
     assertEquals(originCountry, artistDTO.getOriginCountry());
     assertEquals(genre, artistDTO.getGenre());
-    
+
   }
 }

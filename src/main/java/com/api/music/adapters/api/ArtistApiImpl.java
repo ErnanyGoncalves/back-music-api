@@ -3,7 +3,6 @@ package com.api.music.adapters.api;
 import com.api.music.dtos.artist.ArtistDTO;
 import com.api.music.dtos.common.ResponseListDTO;
 import com.api.music.models.Artist;
-import com.api.music.models.Pagination;
 import com.api.music.ports.ArtistApiPort;
 import com.api.music.usecases.artist.CreateArtistUseCase;
 import com.api.music.usecases.artist.DeleteArtistUseCase;

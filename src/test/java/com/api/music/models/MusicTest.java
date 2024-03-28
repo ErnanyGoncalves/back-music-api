@@ -1,6 +1,6 @@
 package com.api.music.models;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -59,23 +59,31 @@ class MusicTest {
 
   private void musicValidationMessages(Set<ConstraintViolation<Music>> violations) {
     for (ConstraintViolation<Music> violation : violations) {
-      Boolean minViolationInfoExists = violation.getConstraintDescriptor().getAnnotation().toString().indexOf("constraints.Min")!= -1;
-      Boolean notNullViolationInfoExists = violation.getConstraintDescriptor().getAnnotation().toString().indexOf("constraints.NotNull")!= -1;
+      Boolean minViolationInfoExists =
+          violation.getConstraintDescriptor().getAnnotation().toString().indexOf("constraints.Min")
+              != -1;
+      Boolean notNullViolationInfoExists =
+          violation.getConstraintDescriptor().getAnnotation().toString()
+              .indexOf("constraints.NotNull") != -1;
       switch (violation.getPropertyPath().toString()) {
         case "title":
           assertEquals("Field title is required.", violation.getMessage());
           break;
         case "trackNum":
-          if(minViolationInfoExists )
+          if (minViolationInfoExists) {
             assertEquals("The trackNum has to be greater than 0.", violation.getMessage());
-          if(notNullViolationInfoExists)
-          assertEquals("Field trackNum is required.", violation.getMessage());
+          }
+          if (notNullViolationInfoExists) {
+            assertEquals("Field trackNum is required.", violation.getMessage());
+          }
           break;
         case "duration":
-          if(minViolationInfoExists)
+          if (minViolationInfoExists) {
             assertEquals("The duration has to be greater than 0.", violation.getMessage());
-          if(notNullViolationInfoExists)
-          assertEquals("Field duration is required.", violation.getMessage());
+          }
+          if (notNullViolationInfoExists) {
+            assertEquals("Field duration is required.", violation.getMessage());
+          }
           break;
         case "artist":
           assertEquals("The music must have an artist.", violation.getMessage());

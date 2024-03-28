@@ -1,12 +1,5 @@
 package com.api.music.dtos.common;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.api.music.models.Pagination;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.jupiter.api.Test;
-
 class ResponseListDTOTest {
 //  @Test
 //  public void testResponseListDTOConstructor() {

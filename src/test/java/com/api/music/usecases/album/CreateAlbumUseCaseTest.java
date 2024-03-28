@@ -1,7 +1,5 @@
 package com.api.music.usecases.album;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.api.music.models.Album;
 import com.api.music.models.Artist;
 import com.api.music.repository.album.AlbumRepositoryPort;
@@ -13,6 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 class CreateAlbumUseCaseTest {
+
   @Mock
   private AlbumRepositoryPort albumRepository;
 

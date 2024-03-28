@@ -1,7 +1,6 @@
 package com.api.music.adapters.api;
 
 
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -18,7 +17,6 @@ import com.api.music.usecases.artist.EditArtistUseCase;
 import com.api.music.usecases.artist.GetArtistUseCase;
 import com.api.music.usecases.artist.GetArtistsUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -59,10 +57,12 @@ class ArtistApiImplTest {
     String originCountry = "country";
     String genre = "genre";
 
-    List<ArtistDTO> mockArtists = Collections.singletonList(new ArtistDTO(id,name,imageUrl,originCountry,genre));
-    Mockito.when(getArtistsUseCase.getArtists(Mockito.anyList(), Mockito.anyList(), Mockito.anyInt(), Mockito.anyInt()))
+    List<ArtistDTO> mockArtists = Collections.singletonList(
+        new ArtistDTO(id, name, imageUrl, originCountry, genre));
+    Mockito.when(
+            getArtistsUseCase.getArtists(Mockito.anyList(), Mockito.anyList(), Mockito.anyInt(),
+                Mockito.anyInt()))
         .thenReturn(mockArtists);
-
 
     mockMvc.perform(get("/artists")
             .contentType(MediaType.APPLICATION_JSON))
@@ -83,10 +83,9 @@ class ArtistApiImplTest {
     String originCountry = "country";
     String genre = "genre";
 
-    ArtistDTO mockArtist = new ArtistDTO(id,name,imageUrl,originCountry,genre);
+    ArtistDTO mockArtist = new ArtistDTO(id, name, imageUrl, originCountry, genre);
     Mockito.when(getArtistUseCase.getArtist(id))
         .thenReturn(mockArtist);
-
 
     mockMvc.perform(get("/artists/1")
             .contentType(MediaType.APPLICATION_JSON))
@@ -108,9 +107,7 @@ class ArtistApiImplTest {
     String originCountry = "country";
     String genre = "genre";
 
-    Artist mockArtist = new Artist(null,name,imageUrl,originCountry,genre);
-
-
+    Artist mockArtist = new Artist(null, name, imageUrl, originCountry, genre);
 
     mockMvc.perform(post("/artists")
             .content(new ObjectMapper().writeValueAsString(mockArtist))
@@ -129,16 +126,14 @@ class ArtistApiImplTest {
     String originCountry = "country";
     String genre = "genre";
 
-    Artist mockArtist = new Artist(null,name,imageUrl,originCountry,genre);
-
-
+    Artist mockArtist = new Artist(null, name, imageUrl, originCountry, genre);
 
     mockMvc.perform(put("/artists/1")
             .content(new ObjectMapper().writeValueAsString(mockArtist))
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
 
-    Mockito.verify(editArtistUseCase).editArtist(id,mockArtist);
+    Mockito.verify(editArtistUseCase).editArtist(id, mockArtist);
   }
 
   @Test

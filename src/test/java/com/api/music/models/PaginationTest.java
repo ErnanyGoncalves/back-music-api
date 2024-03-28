@@ -1,19 +1,19 @@
 package com.api.music.models;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
 class PaginationTest {
+
   @Test
   public void testPaginationConstructor() {
 
     Integer currentPage = 1;
     Integer itemsPerPage = 10;
 
-
     Pagination pagination = new Pagination(currentPage, itemsPerPage);
-
 
     assertEquals(currentPage, pagination.getCurrentPage());
     assertEquals(itemsPerPage, pagination.getItemsPerPage());
@@ -29,14 +29,13 @@ class PaginationTest {
     Integer itemsPerPage = 10;
     Long totalItems = 100L;
     Integer totalPages = 10;
-    Navigation navigationPaths = new Navigation("http://example.com/previous", "http://example.com/next");
+    Navigation navigationPaths = new Navigation("http://example.com/previous",
+        "http://example.com/next");
     Pagination pagination = new Pagination(currentPage, itemsPerPage);
-
 
     pagination.setTotalItems(totalItems);
     pagination.setTotalPages(totalPages);
     pagination.setNavigationPaths(navigationPaths);
-
 
     assertEquals(totalItems, pagination.getTotalItems());
     assertEquals(totalPages, pagination.getTotalPages());
