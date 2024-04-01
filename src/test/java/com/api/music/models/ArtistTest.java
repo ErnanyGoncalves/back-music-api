@@ -22,7 +22,7 @@ class ArtistTest {
     assertEquals(0, violations.size());
     assertEquals(1L, artist.getId());
     assertEquals("Lady Gaga", artist.getName());
-    // PQ EU TENHO Q SETAR 1o A URL pra poder verificar? O valor null não colocaria automaticamente?
+
     artist.setImageUrl("https://placehold.co/500");
     assertEquals("https://placehold.co/500", artist.getImageUrl());
     assertEquals("United States", artist.getOriginCountry());

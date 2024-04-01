@@ -32,13 +32,11 @@ public class Music {
   private Long id;
   @NotEmpty(message = "Field title is required.")
   private String title;
-  //  @Min(value = 1, message = "The trackNum has to be greater than 0.")
-  //  @NotNull(message = "Field trackNum is required.")
-  @Min(value = 1, message = "Field trackNum has to be informed.")
+  @Min(value = 1, message = "The trackNum has to be greater than 0.")
+  @NotNull(message = "Field trackNum is required.")
   private Integer trackNum;
-  //  @Min(value = 1, message = "The duration has to be greater than 0.")
-  //  @NotNull(message = "Field duration is required.")
-  @Min(value = 0, message = "Field duration has to be informed.")
+  @Min(value = 1, message = "The duration has to be greater than 0.")
+  @NotNull(message = "Field duration is required.")
   private Integer duration;
   @ManyToOne
   @JoinColumn(name = "album_id")

@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,11 +23,10 @@ public class Album {
   private Long id;
   @NotEmpty(message = "Field title is required.")
   private String title;
-  //  @Pattern(regexp = "https?:\\/\\/.*\\.(?:png|jpg)", message = "Invalid URL.")
+    @Pattern(regexp = "https?:\\/\\/.*\\.(?:png|jpg)", message = "Invalid URL.")
   private String imageUrl = "https://placehold.co/500";
-  //  @Min(value = 1, message = "The year has to be greater than 0.")
-  //  @NotNull(message = "Field year is required.")
-  @Min(value = 0, message = "Field year is required.")
+
+  @NotNull(message = "Field year is required.")
   private Integer year;
   private Integer numOfTracks = 0;
   private Integer totalDuration = 0;
