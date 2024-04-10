@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+  <title>Coverage Report > Music</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script src="../../js/highlight.min.js" type="text/javascript"></script>
+  <script src="../../js/highlightjs-line-numbers.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div class="content">
+  <div class="breadCrumbs">
+    Current scope: <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.api.music.models</a>
+  </div>
+
+  <h1>Coverage Summary for Class: Music (com.api.music.models)</h1>
+
+  <table class="coverageStats">
+
+    <tr>
+      <th class="name">Class</th>
+    </tr>
+    <tr>
+      <td class="name">Music$HibernateInstantiator$0TvhgiOm</td>
+    </tr>
+    <tr>
+      <td class="name">Music$HibernateInstantiator$2csO36od</td>
+    </tr>
+    <tr>
+      <td class="name">Music$HibernateInstantiator$No399tvj</td>
+    </tr>
+    <tr>
+      <td class="name">Music$HibernateInstantiator$Y8HYf7qU</td>
+    </tr>
+    <tr>
+      <td class="name">Music$HibernateProxy$eAHdM49i</td>
+    </tr>
+    <tr>
+      <td class="name">Music$HibernateProxy$KtwPNgOy</td>
+    </tr>
+    <tr>
+      <td class="name">Music$HibernateProxy$leQoVzFL</td>
+    </tr>
+    <tr>
+      <td class="name">Music$HibernateProxy$yaRsdd6g</td>
+    </tr>
+    <tr>
+      <td class="name"><strong>Total</strong></td>
+    </tr>
+  </table>
+
+  <br/>
+  <br/>
+
+
+  <pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.api.music.models;
+&nbsp;
+&nbsp;import jakarta.persistence.Entity;
+&nbsp;import jakarta.persistence.GeneratedValue;
+&nbsp;import jakarta.persistence.GenerationType;
+&nbsp;import jakarta.persistence.Id;
+&nbsp;import jakarta.persistence.JoinColumn;
+&nbsp;import jakarta.persistence.ManyToOne;
+&nbsp;import jakarta.persistence.Table;
+&nbsp;import jakarta.persistence.UniqueConstraint;
+&nbsp;import jakarta.validation.constraints.Min;
+&nbsp;import jakarta.validation.constraints.NotEmpty;
+&nbsp;import jakarta.validation.constraints.NotNull;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;import lombok.Data;
+&nbsp;import lombok.NoArgsConstructor;
+&nbsp;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Data
+&nbsp;@NoArgsConstructor
+&nbsp;@AllArgsConstructor
+&nbsp;@Table(uniqueConstraints =
+&nbsp;    {
+&nbsp;        @UniqueConstraint(name = &quot;UniqueTrackNumAndAlbumId&quot;, columnNames = {&quot;trackNum&quot;,
+&nbsp;            &quot;album_id&quot;})})
+&nbsp;public class Music {
+&nbsp;
+&nbsp;
+&nbsp;  @Id
+&nbsp;  @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;  private Long id;
+&nbsp;  @NotEmpty(message = &quot;Field title is required.&quot;)
+&nbsp;  private String title;
+&nbsp;  @Min(value = 1, message = &quot;The trackNum has to be greater than 0.&quot;)
+&nbsp;  @NotNull(message = &quot;Field trackNum is required.&quot;)
+&nbsp;  private Integer trackNum;
+&nbsp;  @Min(value = 1, message = &quot;The duration has to be greater than 0.&quot;)
+&nbsp;  @NotNull(message = &quot;Field duration is required.&quot;)
+&nbsp;  private Integer duration;
+&nbsp;  @ManyToOne
+&nbsp;  @JoinColumn(name = &quot;album_id&quot;)
+&nbsp;  @NotNull(message = &quot;The music must have an album.&quot;)
+&nbsp;  private Album album;
+&nbsp;  @ManyToOne
+&nbsp;  @JoinColumn(name = &quot;artist_id&quot;)
+&nbsp;  @NotNull(message = &quot;The music must have an artist.&quot;)
+&nbsp;  private Artist artist;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+  (function() {
+      var msie = false, msie9 = false;
+      /*@cc_on
+        msie = true;
+        @if (@_jscript_version >= 9)
+          msie9 = true;
+        @end
+      @*/
+
+      if (!msie || msie && msie9) {
+        hljs.highlightAll()
+        hljs.initLineNumbersOnLoad();
+      }
+  })();
+</script>
+
+<div class="footer">
+
+  <div style="float:right;">generated on 2024-04-08 15:47</div>
+</div>
+</body>
+</html>

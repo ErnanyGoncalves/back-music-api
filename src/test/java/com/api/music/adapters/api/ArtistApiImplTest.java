@@ -10,13 +10,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.api.music.dtos.artist.ArtistDTO;
+import com.api.music.dtos.common.ResponseListDTO;
 import com.api.music.models.Artist;
+import com.api.music.models.Navigation;
+import com.api.music.models.Pagination;
 import com.api.music.usecases.artist.CreateArtistUseCase;
 import com.api.music.usecases.artist.DeleteArtistUseCase;
 import com.api.music.usecases.artist.EditArtistUseCase;
 import com.api.music.usecases.artist.GetArtistUseCase;
 import com.api.music.usecases.artist.GetArtistsUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -50,27 +54,30 @@ class ArtistApiImplTest {
 
   @Test
   public void testGetArtists() throws Exception {
-//    // CORRIGIR LINK - PORQUE O RETORNO DO WHEN NÃO VEM CORRETAMENTE?
-//    Long id = 1L;
-//    String name = "name";
-//    String imageUrl = "http://example.com/image.jpsssssssssssssssssg";
-//    String originCountry = "country";
-//    String genre = "genre";
-//
-//    List<ArtistDTO> mockArtists = Collections.singletonList(
-//        new ArtistDTO(id, name, imageUrl, originCountry, genre));
-//    Mockito.when(
-//            getArtistsUseCase.getArtists(Mockito.anyList(), Mockito.anyList(), Mockito.anyInt(),
-//                Mockito.anyInt()))
-//        .thenReturn(mockArtists);
-//
-//    mockMvc.perform(get("/artists")
-//            .contentType(MediaType.APPLICATION_JSON))
-//        .andExpect(status().isOk())
-//        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-////        .andExpect(jsonPath("$.data").isArray())
-////        .andExpect(jsonPath("$.data[0].name").value(mockArtists.get(0).getName()));
-//        .andDo(result -> System.out.println(result.getResponse().getContentAsString()));
+
+    Long id = 1L;
+    String name = "name";
+    String imageUrl = "http://example.com/image.jpg";
+    String originCountry = "country";
+    String genre = "genre";
+
+    ResponseListDTO<ArtistDTO> mockArtists = new ResponseListDTO<>(Collections.singletonList(
+        new ArtistDTO(id, name, imageUrl, originCountry, genre)),
+        new Pagination(1, 1, 1L, 1, new Navigation(null, "url", null)));
+
+    Mockito.when(
+            getArtistsUseCase.getArtists(null , null, 0, 10))
+        .thenReturn(mockArtists);
+
+    mockMvc.perform(get("/artists")
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.listOfData").isArray())
+        .andExpect(jsonPath("$.listOfData[0].name").value("name"))
+        .andExpect(jsonPath("$.listOfData[0].imageUrl").value("http://example.com/image.jpg"))
+        .andExpect(jsonPath("$.listOfData[0].originCountry").value("country"))
+        .andExpect(jsonPath("$.listOfData[0].genre").value("genre"));
   }
 
 

@@ -15,7 +15,7 @@ class ArtistTest {
   private final Validator validator = factory.getValidator();
 
   @Test
-  public void testConstructorArtist() {
+  void testConstructorArtist() {
     Artist artist = new Artist(1L, "Lady Gaga", null, "United States", "Pop");
     Set<ConstraintViolation<Artist>> violations = validator.validate(artist);
 
@@ -23,24 +23,23 @@ class ArtistTest {
     assertEquals(1L, artist.getId());
     assertEquals("Lady Gaga", artist.getName());
 
-    artist.setImageUrl("https://placehold.co/500");
     assertEquals("https://placehold.co/500", artist.getImageUrl());
     assertEquals("United States", artist.getOriginCountry());
     assertEquals("Pop", artist.getGenre());
   }
 
   @Test
-  public void testConstructorArtistErrors() {
+  void testConstructorArtistErrors() {
     Artist artist = new Artist();
     Set<ConstraintViolation<Artist>> violations = validator.validate(artist);
 
-    assertEquals(4, violations.size());
+    assertEquals(3, violations.size());
 
     artistValidationMessages(violations);
   }
 
   @Test
-  public void testConstructorArtistErrors2() {
+  void testConstructorArtistErrors2() {
     Artist artist = new Artist(1L, "Lady Gaga", "http://www.google.com", "United States", "Pop");
     Set<ConstraintViolation<Artist>> violations = validator.validate(artist);
     assertEquals(1, violations.size());

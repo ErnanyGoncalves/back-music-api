@@ -19,8 +19,6 @@ import com.api.music.usecases.album.EditAlbumUseCase;
 import com.api.music.usecases.album.GetAlbumUseCase;
 import com.api.music.usecases.album.GetAlbumsUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Collections;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,10 +6,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import java.util.Optional;
+import java.util.function.Predicate;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,7 +24,7 @@ public class Album {
   private Long id;
   @NotEmpty(message = "Field title is required.")
   private String title;
-    @Pattern(regexp = "https?:\\/\\/.*\\.(?:png|jpg)", message = "Invalid URL.")
+  @Pattern(regexp = "https?:\\/\\/.*\\.(?:png|jpg)|(https://placehold.co/500)", message = "Invalid URL.")
   private String imageUrl = "https://placehold.co/500";
 
   @NotNull(message = "Field year is required.")
@@ -39,7 +40,11 @@ public class Album {
   public Album(Long id, String title, String imageUrl, Integer year, Artist artist) {
     this.id = id;
     this.title = title;
-    this.imageUrl = imageUrl;
+
+    Optional.ofNullable(imageUrl)
+        .filter(Predicate.not(String::isBlank))
+        .ifPresent(img -> this.imageUrl = img);
+
     this.year = year;
     this.artist = artist;
   }

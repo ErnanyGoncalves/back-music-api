@@ -6,6 +6,7 @@ import com.api.music.mappers.MusicMapper;
 import com.api.music.models.Navigation;
 import com.api.music.models.Pagination;
 import com.api.music.repository.music.MusicRepositoryPort;
+import com.api.music.utils.FilterUtils;
 import java.util.Comparator;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,8 @@ public class GetMusicsUseCase {
     Integer totalPages = (int) Math.ceil((double) totalElements / pageSize);
 
     String filters = buildFilters(pageSize, albums, artists);
-    Navigation navigationPaths = buildNavigation(currentPage, totalPages, filters);
+    Navigation navigationPaths = FilterUtils.buildNavigation("musics", currentPage, totalPages,
+        filters);
     return new ResponseListDTO<>(listOfMusics,
         new Pagination(currentPage, pageSize, totalElements, totalPages, navigationPaths));
   }
@@ -54,29 +56,4 @@ public class GetMusicsUseCase {
     return filterString.toString();
   }
 
-
-  private Navigation buildNavigation(Integer currentPage, Integer totalPages, String filters) {
-    Integer pPage = null;
-    Integer cPage = currentPage;
-    Integer nPage = null;
-
-    if (cPage > 1) {
-      pPage = cPage - 1;
-    }
-    if (cPage < totalPages) {
-      nPage = cPage + 1;
-    }
-
-    String pPageStr = null;
-    String cPageStr = new StringBuilder("/musics?page=" + cPage + filters).toString();
-    String nPageStr = null;
-
-    if (pPage != null) {
-      pPageStr = new StringBuilder("/musics?page=" + pPage + filters).toString();
-    }
-    if (nPage != null) {
-      nPageStr = new StringBuilder("/musics?page=" + nPage + filters).toString();
-    }
-    return new Navigation(pPageStr, cPageStr, nPageStr);
-  }
 }

@@ -1,18 +1,11 @@
 package com.api.music.usecases.album;
 
-import com.api.music.dtos.album.AlbumWithArtistDTO;
-import com.api.music.dtos.artist.ArtistDTO;
 import com.api.music.mappers.AlbumWithArtistMapper;
-import com.api.music.models.Album;
-import com.api.music.models.Artist;
 import com.api.music.repository.album.AlbumRepositoryPort;
-import java.util.Arrays;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 class GetAlbumsUseCaseTest {

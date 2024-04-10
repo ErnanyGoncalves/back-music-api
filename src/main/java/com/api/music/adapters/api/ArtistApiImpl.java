@@ -44,8 +44,6 @@ public class ArtistApiImpl implements ArtistApiPort {
       @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
     return getArtistsUseCase.getArtists(originCountries, genres, page - 1,
         pageSize);
-
-
   }
 
   @GetMapping("/{id}")
